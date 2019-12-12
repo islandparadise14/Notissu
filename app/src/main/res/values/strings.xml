@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Notissu</string>
+    <string name="select_info_sub">앱을 시작하기 위해</string>
+    <string name="select_info">전공을 선택해주세요</string>
+    <string name="start">시작하기</string>
+
+    <string name="my_noti">내 공지</string>
+    <string name="major_list">전공목록</string>
+    <string name="school_noti">학교 공지</string>
+    <string name="search">검색</string>
+    <string name="more">더보기</string>
+</resources>
