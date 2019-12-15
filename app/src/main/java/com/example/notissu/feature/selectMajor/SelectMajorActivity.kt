@@ -1,4 +1,4 @@
-package com.example.notissu
+package com.example.notissu.feature.selectMajor
 
 import android.content.Intent
 import android.os.Build
@@ -9,12 +9,11 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import com.example.notissu.feature.main.MainActivity
+import com.example.notissu.R
 import com.example.notissu.data.MajorData
-import com.example.notissu.presenter.SelectMajorContract
-import com.example.notissu.presenter.SelectMajorPresenter
 import com.example.notissu.utils.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_select_major.*
 
@@ -30,9 +29,12 @@ class SelectMajorActivity : AppCompatActivity(), SelectMajorContract.View {
         val window: Window = window
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.white)
+        window.statusBarColor = ContextCompat.getColor(applicationContext,
+            R.color.white
+        )
 
-        presenter = SelectMajorPresenter()
+        presenter =
+            SelectMajorPresenter()
 
         presenter.view = this@SelectMajorActivity
 

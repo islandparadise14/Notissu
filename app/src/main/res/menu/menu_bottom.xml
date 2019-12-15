@@ -4,25 +4,28 @@
     <item
         android:id="@+id/my_notification"
         android:title="@string/my_noti"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/notice"/>
 
     <item
         android:id="@+id/major_list"
         android:title="@string/major_list"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/major_list"/>
 
-    <item
-        android:id="@+id/school_notification"
-        android:title="@string/school_noti"
-        app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:id="@+id/school_notification"-->
+<!--        android:title="@string/school_noti"-->
+<!--        app:showAsAction="ifRoom"/>-->
 
-    <item
-        android:id="@+id/major_search"
-        android:title="@string/search"
-        app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:id="@+id/major_search"-->
+<!--        android:title="@string/search"-->
+<!--        app:showAsAction="ifRoom"/>-->
 
     <item
         android:id="@+id/more"
         android:title="@string/more"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/more"/>
 </menu>

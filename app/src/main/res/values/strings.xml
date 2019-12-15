@@ -9,4 +9,7 @@
     <string name="school_noti">학교 공지</string>
     <string name="search">검색</string>
     <string name="more">더보기</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

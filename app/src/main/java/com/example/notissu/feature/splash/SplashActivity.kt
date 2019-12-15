@@ -1,4 +1,4 @@
-package com.example.notissu
+package com.example.notissu.feature.splash
 
 import android.content.Intent
 import android.os.Build
@@ -9,6 +9,9 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.notissu.feature.main.MainActivity
+import com.example.notissu.R
+import com.example.notissu.feature.selectMajor.SelectMajorActivity
 import com.example.notissu.utils.SharedPreferenceUtil
 
 
@@ -21,7 +24,9 @@ class SplashActivity : AppCompatActivity() {
         val window: Window = window
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.colorPrimaryDark)
+        window.statusBarColor = ContextCompat.getColor(applicationContext,
+            R.color.colorPrimaryDark
+        )
 
         SharedPreferenceUtil.init(this)
 
@@ -36,7 +41,10 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(applicationContext, SelectMajorActivity::class.java))
             else
                 startActivity(Intent(applicationContext, MainActivity::class.java))
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            overridePendingTransition(
+                R.anim.fade_in,
+                R.anim.fade_out
+            )
             finish()
         }
     }

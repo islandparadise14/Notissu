@@ -1,4 +1,4 @@
-package com.example.notissu.presenter
+package com.example.notissu.feature.selectMajor
 
 import com.example.notissu.data.MajorData
 
