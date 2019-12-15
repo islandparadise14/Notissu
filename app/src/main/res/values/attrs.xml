@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NotissuTopbar">
+        <attr name="setBackButton" format="boolean"/>
+        <attr name="setPlusButton" format="boolean"/>
+    </declare-styleable>
+</resources>
