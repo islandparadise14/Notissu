@@ -10,6 +10,13 @@
     <string name="search">검색</string>
     <string name="more">더보기</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="it">IT 대학</string>
+    <string name="law">법과대학</string>
+    <string name="humanities">인문대학</string>
+    <string name="engineer">공과대학</string>
+    <string name="science">자연과학대학</string>
+    <string name="biz">경영대학</string>
+    <string name="eco">경제통상대학</string>
+    <string name="social">사회과학대학</string>
+    <string name="convergence">융합특성화자유전공학부</string>
 </resources>

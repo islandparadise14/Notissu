@@ -20,7 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/top_bar_height"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="@dimen/bottom_nav_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView">
     </FrameLayout>
 
@@ -30,11 +32,12 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_nav_height"
         android:background="@drawable/bottom"
+        app:itemIconSize="20dp"
         app:itemIconTint="@drawable/bottom_item"
         app:itemTextColor="@drawable/bottom_item"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_bottom"
-        tools:layout_editor_absoluteX="0dp"
-        app:itemIconSize="20dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom" />
 </androidx.constraintlayout.widget.ConstraintLayout>
