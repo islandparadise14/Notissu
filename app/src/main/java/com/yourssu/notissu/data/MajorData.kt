@@ -52,4 +52,8 @@ class MajorData {
     fun getMajors(): ArrayList<Major> {
         return majors
     }
+
+    fun getMajorByIndex(index: Int): Major {
+        return majors[index]
+    }
 }

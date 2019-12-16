@@ -13,6 +13,11 @@ import com.yourssu.notissu.R
  */
 class MajorListFragment : Fragment() {
 
+    companion object {
+        @JvmStatic
+        fun getInstance() = MajorListFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

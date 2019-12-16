@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import com.yourssu.notissu.feature.main.MainActivity
 import com.yourssu.notissu.R
 import com.yourssu.notissu.data.MajorData
+import com.yourssu.notissu.data.MAJOR_KEY
 import com.yourssu.notissu.utils.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_select_major.*
 
@@ -43,7 +44,7 @@ class SelectMajorActivity : AppCompatActivity(), SelectMajorContract.View {
         presenter.loadItem()
 
         startButton.setOnClickListener {
-            SharedPreferenceUtil.setIntValue("major", majorNumber)
+            SharedPreferenceUtil.setIntValue(MAJOR_KEY, majorNumber)
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
         }

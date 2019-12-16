@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.yourssu.notissu.feature.main.MainActivity
 import com.yourssu.notissu.R
+import com.yourssu.notissu.data.MAJOR_KEY
 import com.yourssu.notissu.feature.selectMajor.SelectMajorActivity
 import com.yourssu.notissu.utils.SharedPreferenceUtil
 
@@ -36,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
     }
     inner class SplashHandler : Runnable {
         override fun run() {
-            val majorInfo = SharedPreferenceUtil.getInt("major")
+            val majorInfo = SharedPreferenceUtil.getInt(MAJOR_KEY)
             if (majorInfo == -1)
                 startActivity(Intent(applicationContext, SelectMajorActivity::class.java))
             else
