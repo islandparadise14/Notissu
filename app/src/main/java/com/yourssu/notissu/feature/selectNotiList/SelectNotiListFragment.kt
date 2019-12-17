@@ -8,12 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.yourssu.notissu.R
-import com.yourssu.notissu.data.NoticeBusiness
 import com.yourssu.notissu.model.Notice
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.

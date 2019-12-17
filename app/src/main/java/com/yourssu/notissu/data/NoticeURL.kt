@@ -22,6 +22,7 @@ object NoticeURL {
 
     // 공과대학
     const val engineerChemistryURL = "http://chemeng.ssu.ac.kr/sub/sub03_01.php?boardid=notice1&sk=&sw=&category=&offset="
+
     const val engineerMachineURL = "http://me.ssu.ac.kr/web/me/notice_a?p_p_id=EXT_BBS&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_EXT_BBS_struts_action=%2Fext%2Fbbs%2Fview&_EXT_BBS_sCategory=&_EXT_BBS_sTitle=&_EXT_BBS_sWriter=&_EXT_BBS_sTag=&_EXT_BBS_sContent=&_EXT_BBS_sCategory2=&_EXT_BBS_sKeyType=&_EXT_BBS_sKeyword=&_EXT_BBS_curPage="
 
     const val engineerElectricURL = "http://ee.ssu.ac.kr/sub/sub05_01.php?boardid=notice&sk=&sw=&category=&offset="
@@ -69,6 +70,7 @@ object NoticeURL {
 
     const val socialPoliticsURL = "http://pre.ssu.ac.kr/web/psir/board_a?p_p_id=EXT_BBS&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_EXT_BBS_struts_action=%2Fext%2Fbbs%2Fview&_EXT_BBS_sCategory=&_EXT_BBS_sTitle=&_EXT_BBS_sWriter=&_EXT_BBS_sTag=&_EXT_BBS_sContent=&_EXT_BBS_sCategory2=&_EXT_BBS_sKeyType=&_EXT_BBS_sKeyword=&_EXT_BBS_curPage="
 
+    // 융합
     const val mixURL = "http://pre.ssu.ac.kr/web/convergence/32?p_p_id=EXT_BBS&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_EXT_BBS_struts_action=%2Fext%2Fbbs%2Fview&_EXT_BBS_sCategory=&_EXT_BBS_sTitle=&_EXT_BBS_sWriter=&_EXT_BBS_sTag=&_EXT_BBS_sContent=&_EXT_BBS_sCategory2=&_EXT_BBS_sKeyType=&_EXT_BBS_sKeyword=&_EXT_BBS_curPage="
 
 }
