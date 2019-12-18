@@ -173,7 +173,7 @@ object NoticeBusiness {
     }
 
     @JvmStatic
-    fun parseListAccount(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Void) {
+    fun parseListAccount(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
         val noticeUrl = "${NoticeURL.businessAccountURL}$page"
         val noticeList = ArrayList<Notice>()
         val authorList = ArrayList<String>()
@@ -249,7 +249,7 @@ object NoticeBusiness {
     }
 
     @JvmStatic
-    fun parseListFinance(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Void) {
+    fun parseListFinance(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
         val noticeUrl = "${NoticeURL.businessFinanceURL}$page"
         val noticeList = ArrayList<Notice>()
         val authorList = ArrayList<String>()

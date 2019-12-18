@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         majorName = MajorData.getInstance().getMajorByIndex(SharedPreferenceUtil.getInt(MAJOR_KEY)).name
         mainTopBar.setTitle(majorName)
 
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, SelectNotiListFragment.getInstance()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, SelectNotiListFragment.getInstance(SharedPreferenceUtil.getInt(MAJOR_KEY), null)).commit()
 
         bottomNavigationSetting()
     }
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             when (MenuItem.itemId) {
                 R.id.my_notification -> {
                     mainTopBar.setTitle(majorName)
-                    supportFragmentManager.beginTransaction().replace(R.id.main_container, SelectNotiListFragment.getInstance()).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_container, SelectNotiListFragment.getInstance(SharedPreferenceUtil.getInt(MAJOR_KEY), null)).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.major_list -> {

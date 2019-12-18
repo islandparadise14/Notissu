@@ -11,7 +11,7 @@ import com.yourssu.notissu.model.Major
 import kotlinx.android.synthetic.main.item_major.view.*
 import java.util.zip.Inflater
 
-class MajorAdapter(var majors: ArrayList<Major>?) : RecyclerView.Adapter<MajorViewHolder>() {
+class MajorAdapter(var majors: ArrayList<Major>?, val clicked: (Int) -> Unit) : RecyclerView.Adapter<MajorViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MajorViewHolder {
         val inflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val itemView = inflater.inflate(R.layout.item_major, parent, false)
@@ -29,8 +29,11 @@ class MajorAdapter(var majors: ArrayList<Major>?) : RecyclerView.Adapter<MajorVi
         majors?.let {
             holder.itemView.majorName.text = it[position].name
             holder.itemView.majorNameEng.text = it[position].engName
+            val majorId = it[position].id
             if (it.size - 1 == position)
                 holder.itemView.underLine.visibility = View.GONE
+
+            holder.itemView.setOnClickListener { clicked(majorId) }
         }
     }
 
