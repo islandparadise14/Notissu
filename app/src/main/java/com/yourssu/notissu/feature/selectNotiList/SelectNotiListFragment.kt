@@ -98,6 +98,10 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
             }
             // UI data update from UI thread
             // Hide Progress from UI thread
+            if (animationView != null) {
+                animationView.cancelAnimation()
+                animationView.visibility = View.GONE
+            }
             nextPage += 1
             update()
         }

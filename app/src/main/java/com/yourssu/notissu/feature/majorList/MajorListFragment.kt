@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yourssu.notissu.R
 import com.yourssu.notissu.data.MAJOR_INTENT_KEY
 import com.yourssu.notissu.data.MajorData
+import com.yourssu.notissu.feature.main.MainActivity
 import com.yourssu.notissu.feature.majorNotiList.MajorNotiActivity
 import com.yourssu.notissu.model.Major
 import kotlinx.android.synthetic.main.fragment_major_list.view.*
@@ -78,6 +79,4 @@ class MajorListFragment : Fragment(), MajorListContract.View {
         intent.putExtra(MAJOR_INTENT_KEY, position)
         startActivity(intent)
     }
-
-
 }

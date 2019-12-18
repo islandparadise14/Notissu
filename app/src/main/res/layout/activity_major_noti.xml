@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".feature.majorNotiList.MajorNotiActivity">
 
+    <com.yourssu.notissu.customView.NotissuTopbar
+        android:id="@+id/notissuTopbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:setBackButton="true"
+        app:setPlusButton="true"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/majorNotiMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/top_bar_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notissuTopbar">
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

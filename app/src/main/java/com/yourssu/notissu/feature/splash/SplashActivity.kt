@@ -9,14 +9,20 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.yourssu.notissu.feature.main.MainActivity
 import com.yourssu.notissu.R
 import com.yourssu.notissu.data.MAJOR_KEY
+import com.yourssu.notissu.feature.majorList.MajorListFragment
+import com.yourssu.notissu.feature.myInfo.MyInfoFragment
 import com.yourssu.notissu.feature.selectMajor.SelectMajorActivity
+import com.yourssu.notissu.feature.selectNotiList.SelectNotiListFragment
 import com.yourssu.notissu.utils.SharedPreferenceUtil
 
 
 class SplashActivity : AppCompatActivity() {
+    private val fragments :ArrayList<Fragment> = ArrayList()
+    var majorInfo: Int = -1
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +37,18 @@ class SplashActivity : AppCompatActivity() {
 
         SharedPreferenceUtil.init(this)
 
+        SharedPreferenceUtil.init(this)
+
+        majorInfo = SharedPreferenceUtil.getInt(MAJOR_KEY)
         val handler = Handler()
-        handler.postDelayed(SplashHandler(), 1000)
+        if (majorInfo == -1)
+            handler.postDelayed(SplashHandler(), 1000)
+        else
+            handler.postDelayed(SplashHandler(), 300)
 
     }
     inner class SplashHandler : Runnable {
         override fun run() {
-            val majorInfo = SharedPreferenceUtil.getInt(MAJOR_KEY)
             if (majorInfo == -1)
                 startActivity(Intent(applicationContext, SelectMajorActivity::class.java))
             else

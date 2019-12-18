@@ -35,34 +35,37 @@ object NoticeIT {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("table > tbody > tr")) {
-                    if (product.nextSibling()?.attr("class") == "center") {
-                        val noticeAuthor = product.nextSibling()?.toString() ?:""
-                        val noticeDate = product.nextSibling()?.nextSibling()?.toString() ?:""
-                        val pageString = product.select("a")?.attr("href") ?:""
+                for (product in doc.select("table tbody tr td")) {
+                    if (product.nextElementSibling().attr("class") ?: "" == "center") {
+                    val noticeAuthor = product.nextElementSibling()?.text() ?: ""
+                    val noticeDate = product.nextElementSibling()?.nextElementSibling()?.text() ?: ""
+                    val pageString = product.select("a").attr("href") ?: ""
 
-                        when (index % 2) {
-                        0 -> {
-                            val noticeTitle = product.text()
-                            authorList.add(noticeAuthor)
-                            titleList.add(noticeTitle)
-                            pageStringList.add("http://cse.ssu.ac.kr/03_sub/01_sub.htm$pageString")
-                            dateStringList.add(noticeDate)
-                            isNoticeList.add(false)
+                        if (pageString.isNotEmpty()) {
+
+                            when (index % 2) {
+                            0 -> {
+                                val noticeTitle = product.text() ?: ""
+                                authorList.add(noticeAuthor)
+                                titleList.add(noticeTitle)
+                                pageStringList.add("http://cse.ssu.ac.kr/03_sub/01_sub.htm$pageString")
+                                dateStringList.add(noticeDate)
+                                isNoticeList.add(false)
+                            }
+                            else -> {}
                         }
-                        1 -> {}
-                        else -> {}
-                    }
+                }
                     index += 1
 
-                    } else if (product.nextSibling()?.attr("class") ?:"" == "etc") {
-                        // 첫 페이지만 보여주기
+                } else if (product.nextElementSibling()?.attr("class") ?: "" == "etc") {
+                    // 첫 페이지만 보여주기
 
-                        if (page < 2) {
-                            val noticeAuthor = product.nextSibling()?.toString() ?:""
-                            val noticeDate = product.nextSibling()?.nextSibling()?.toString() ?: ""
-                            val pageString = product.select("a").first()?.attr("href") ?: ""
-                            pageStringList.add("http://cse.ssu.ac.kr/03_sub/01_sub.htm$pageString")
+                    if (page < 2) {
+                        val noticeAuthor = product.nextElementSibling()?.text() ?: ""
+                        val noticeDate = product.nextElementSibling()?.nextElementSibling()?.text() ?: ""
+                        val pageString = product.select("a").first()?.attr("href") ?: ""
+                        if (pageString.isNotEmpty()) {
+                            //http://cse.ssu.ac.kr/03_sub/01_sub.htm
 
                             when (index % 2) {
                             0 -> {
@@ -73,12 +76,12 @@ object NoticeIT {
                                 dateStringList.add(noticeDate)
                                 isNoticeList.add(true)
                             }
-                            1 -> {}
                             else -> {}
                         }
-                            index += 1
-                        }
                     }
+                        index += 1
+                    }
+                }
                 }
 
                 index = 0
@@ -93,7 +96,6 @@ object NoticeIT {
                     noticeList.add(noticeItem)
                     index += 1
                 }
-
                 if (canFetchData)
                     completion(noticeList)
             } catch (error: Exception) {
@@ -115,7 +117,6 @@ object NoticeIT {
         requestURL = if (keyword != null) {
             val keywordSearch = URLEncoder.encode(keyword, "UTF-8")
             val searchUrl = "http://media.ssu.ac.kr/sub.php?code=XxH00AXY&mode=&category=1&searchType=title&search=$keywordSearch&orderType=&orderBy=&page=$page"
-
             searchUrl
         } else {
             noticeUrl
@@ -124,51 +125,52 @@ object NoticeIT {
         var index: Int
         try {
             val doc = Jsoup.connect(requestURL).get()
-            for (product in doc.select("table > tbody > tr > a")) {
-                val noticeId = if (product.attr("onclick") == null) ""
-                else if (MEDIA_NOTICE_ID_PATTERN.matcher(product.attr("onclick")).matches()) product.attr("onclick")
-                else ""
-                val url = "http://media.ssu.ac.kr/sub.php?code=XxH00AXY&mode=view&board_num=$noticeId&category=1"
-                urlList.add(url)
-                titleList.add(product.text() ?: "")
-            }
+                for (product in doc.select("table tbody tr a")) {
+                    val noticeId = if (MEDIA_NOTICE_ID_PATTERN.matcher(product.attr("onclick")).matches())
+                        product.attr("onclick")
+                    else
+                        ""
+                    val url = "http://media.ssu.ac.kr/sub.php?code=XxH00AXY&mode=view&board_num=$noticeId&category=1"
+                    urlList.add(url)
+                    titleList.add(product.text() ?: "")
+                }
 
-            index = 0
-            for (product in doc.select("td[align='center']")) {
-                if (index % 4 == 0) {
-                    val isNotice = product.text() ?: ""
-                    if (!isNumeric(isNotice)) {
-                        isNoticeList.add(true)
-                    } else {
-                        isNoticeList.add(false)
+                index = 0
+                for (product in doc.select("td[align='center']")) {
+                    if (index % 4 == 0) {
+                        val isNotice = product.text() ?: ""
+                        if (!isNumeric(isNotice)) {
+                            isNoticeList.add(true)
+                        } else {
+                            isNoticeList.add(false)
+                        }
                     }
+
+                    if (index % 4 == 1) {
+                        authorList.add(product.text() ?: "")
+                    } else if (index % 4 == 2) {
+                        dateStringList.add(product.text() ?: "")
+                    }
+                    index += 1
                 }
 
-                if (index % 4 == 1) {
-                    authorList.add(product.text() ?: "")
-                } else if (index % 4 == 2) {
-                    dateStringList.add(product.text() ?: "")
+                index = 0
+                var canFetchData = true
+                if (authorList.count() < 1) {
+                    canFetchData = false
                 }
-                index += 1
-            }
 
-            index = 0
-            var canFetchData = true
-            if (authorList.count() < 1) {
-                canFetchData = false
-            }
+                for (num in authorList) {
+                    val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
 
-            for (num in authorList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-
-                noticeList.add(noticeItem)
-                index += 1
+                    noticeList.add(noticeItem)
+                    index += 1
+                }
+                if (canFetchData)
+                    completion(noticeList)
+            } catch (error: Exception) {
+                print("Error : $error")
             }
-            if (canFetchData)
-                completion(noticeList)
-        } catch (error: Exception) {
-            print("Error : $error")
-        }
     }
 
     @JvmStatic
@@ -323,10 +325,9 @@ object NoticeIT {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-
             for (product in doc.select("table[class='ui celled padded table'] tbody td")) {
-                val content = (product.text() ?:"").trim()
-                when (index % 3) {
+                val content = (product.text() ?: "").trim()
+                when(index % 3) {
                     0 -> {
                         //title
                         titleList.add(content)
@@ -342,19 +343,21 @@ object NoticeIT {
                     else -> {}
                 }
 
-                val url = product.select("a").first().attr("href") ?: ""
-                val realUrl = "http://smartsw.ssu.ac.kr$url"
-                urlList.add(realUrl)
-
+                val url = product.select("a").first()
+                if (url != null) {
+                    val realUrl = "http://smartsw.ssu.ac.kr${url.attr("href")}"
+                    urlList.add(realUrl)
+                }
 
                 index += 1
             }
         } catch (error: Exception) {
             print("Error : $error")
         }
+
         index = 0
         for (num in authorList) {
-            val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+            val noticeItem = Notice(author= authorList[index], title= titleList[index], url= urlList[index], date= dateStringList[index], isNotice= false)
             noticeList.add(noticeItem)
             index += 1
         }
