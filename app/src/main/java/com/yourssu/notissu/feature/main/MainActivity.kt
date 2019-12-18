@@ -13,6 +13,7 @@ import com.yourssu.notissu.data.MAJOR_KEY
 import com.yourssu.notissu.feature.majorList.MajorListFragment
 import com.yourssu.notissu.feature.majorNotiList.MajorNotiActivity
 import com.yourssu.notissu.feature.myInfo.MyInfoFragment
+import com.yourssu.notissu.feature.search.SearchFragment
 import com.yourssu.notissu.feature.selectNotiList.SelectNotiListFragment
 import com.yourssu.notissu.utils.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationSetting()
 
         fragments.add(MajorListFragment.getInstance())
+        fragments.add(SearchFragment.getInstance(application))
         fragments.add(MyInfoFragment.getInstance())
 
         for (fragment in fragments)
@@ -59,10 +61,16 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().show(fragments[0]).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
+                R.id.major_search -> {
+                    mainTopBar.setTitle("검색")
+                    fragmentHide()
+                    supportFragmentManager.beginTransaction().show(fragments[1]).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
                 R.id.more -> {
                     mainTopBar.setTitle("더보기")
                     fragmentHide()
-                    supportFragmentManager.beginTransaction().show(fragments[1]).commit()
+                    supportFragmentManager.beginTransaction().show(fragments[2]).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> {return@setOnNavigationItemSelectedListener false}

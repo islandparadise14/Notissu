@@ -18,10 +18,11 @@
 <!--        android:title="@string/school_noti"-->
 <!--        app:showAsAction="ifRoom"/>-->
 
-<!--    <item-->
-<!--        android:id="@+id/major_search"-->
-<!--        android:title="@string/search"-->
-<!--        app:showAsAction="ifRoom"/>-->
+    <item
+        android:id="@+id/major_search"
+        android:title="@string/search"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_search"/>
 
     <item
         android:id="@+id/more"

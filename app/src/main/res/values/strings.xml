@@ -21,4 +21,12 @@
     <string name="convergence">융합특성화자유전공학부</string>
 
     <string name="noti_string">공지</string>
+
+    <string name="search_major">전공을 선택해주세요</string>
+    <string name="input_keyword">검색어 입력</string>
+    <string name="do_search">검색하기</string>
+
+    <string name="can_search">검색가능 전공</string>
+    <string name="can_search_list">IT 대학\n법과대학\n인문대학\n공과대학\n자연과학대학\n경영대학\n경제통상대학\n사회과학대학\n융합특성화자유전공학부\n
+    </string>
 </resources>
