@@ -323,7 +323,7 @@ object NoticeSocial {
             var boldCount = 0
             val doc = Jsoup.connect(requestURL).get()
                 var isAdd = false
-                for (product in doc.select("table[class='bbs-list'] tbody td")) {
+                for (product in doc.select("table[class='board_list'] tbody td")) {
                     val content = product.text().trim()
                     print(content)
                     when (index % 5) {

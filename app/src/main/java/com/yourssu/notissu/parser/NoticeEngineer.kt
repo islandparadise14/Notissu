@@ -4,6 +4,7 @@ import com.yourssu.notissu.data.NoticeURL
 import com.yourssu.notissu.model.Notice
 import com.yourssu.notissu.utils.isNumeric
 import org.jsoup.Jsoup
+import org.jsoup.select.Elements
 import java.lang.Exception
 import java.net.URLEncoder
 
@@ -292,25 +293,29 @@ object NoticeEngineer {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in (doc.select("div[class='mt40']").first()?.select("td[align=left] a"))!!) {
+                for (product in (doc.select("div[class='mt40'] td[align=left] a"))) {
                     val content = product.text().trim()
                     titleList.add(content)
                     urlList.add("http://materials.ssu.ac.kr${product.attr("href") ?: ""}")
                 }
                 // Remove Frist Item
                 index = 0
-                for (product in (doc.select("div[class='mt40']").first()?.select("tr[height=35]"))!!) {
-                    var realContent = product.text() ?: ""
+                for (product in (doc.select("div[class='mt40'] tr[height='35']"))) {
+                    var realContent = product.html() ?: ""
                     realContent = realContent.replace("\t", "")
                     realContent = realContent.replace(" ", "")
                     if (index > 0) {
-                        val postItem: ArrayList<String> = (realContent.split("\n") as ArrayList<String>)
+                        var postItem = (realContent.split("\n"))
+                        val postItemList = ArrayList<String>()
+                        for (string in postItem){
+                            postItemList.add(string)
+                        }
                         if (postItem.count() > 9) {
                             // 번호를 지운다
-                            postItem.removeAt(0)
+                            postItemList.removeAt(0)
                         }
-                        authorList.add(postItem[3])
-                        dateStringList.add(postItem[5])
+                        authorList.add(postItemList[3])
+                        dateStringList.add(postItemList[5])
                     }
                     index += 1
                 }

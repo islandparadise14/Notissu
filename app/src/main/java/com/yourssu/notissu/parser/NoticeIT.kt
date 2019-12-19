@@ -1,6 +1,5 @@
 package com.yourssu.notissu.parser
 
-import com.yourssu.notissu.data.INFOCOM_URL_PATTERN
 import com.yourssu.notissu.data.MEDIA_NOTICE_ID_PATTERN
 import com.yourssu.notissu.model.Notice
 import com.yourssu.notissu.utils.isNumeric
@@ -14,7 +13,7 @@ object NoticeIT {
         val noticeList = ArrayList<Notice>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
-        val pageStringList = ArrayList<String>()
+        val urlStringList = ArrayList<String>()
         val dateStringList = ArrayList<String>()
         val isNoticeList = ArrayList<Boolean>()
         val requestURL: String
@@ -35,69 +34,63 @@ object NoticeIT {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("table tbody tr td")) {
-                    if (product.nextElementSibling().attr("class") ?: "" == "center") {
-                    val noticeAuthor = product.nextElementSibling()?.text() ?: ""
-                    val noticeDate = product.nextElementSibling()?.nextElementSibling()?.text() ?: ""
-                    val pageString = product.select("a").attr("href") ?: ""
+                for (product in doc.select("tbody tr")) {
+                    val tds = product.select("td")
+                    var tdIndex = 0
+                    var isNotice = false
+                    var title = ""
+                    var author = ""
+                    var date = ""
+                    var url = ""
 
-                        if (pageString.isNotEmpty()) {
-
-                            when (index % 2) {
+                    for (td in tds){
+                        when (tdIndex) {
                             0 -> {
-                                val noticeTitle = product.text() ?: ""
-                                authorList.add(noticeAuthor)
-                                titleList.add(noticeTitle)
-                                pageStringList.add("http://cse.ssu.ac.kr/03_sub/01_sub.htm$pageString")
-                                dateStringList.add(noticeDate)
-                                isNoticeList.add(false)
+                                isNotice = !isNumeric(td.text())
+                            }
+                            1 -> {
+                                title = td.select("a").text()
+                                url = "http://cse.ssu.ac.kr/03_sub/01_sub.htm${td.select("a").attr("href")}"
+                            }
+                            2 -> {
+                                author = td.text()
+                            }
+                            3 -> {
+                                date = td.text()
                             }
                             else -> {}
                         }
-                }
-                    index += 1
-
-                } else if (product.nextElementSibling()?.attr("class") ?: "" == "etc") {
-                    // 첫 페이지만 보여주기
-
-                    if (page < 2) {
-                        val noticeAuthor = product.nextElementSibling()?.text() ?: ""
-                        val noticeDate = product.nextElementSibling()?.nextElementSibling()?.text() ?: ""
-                        val pageString = product.select("a").first()?.attr("href") ?: ""
-                        if (pageString.isNotEmpty()) {
-                            //http://cse.ssu.ac.kr/03_sub/01_sub.htm
-
-                            when (index % 2) {
-                            0 -> {
-                                val noticeTitle = product.text() ?: ""
-                                authorList.add(noticeAuthor)
-                                titleList.add(noticeTitle)
-                                pageStringList.add("http://cse.ssu.ac.kr/03_sub/01_sub.htm$pageString")
-                                dateStringList.add(noticeDate)
-                                isNoticeList.add(true)
+                        tdIndex += 1
+                    }
+                    if (author.isNotEmpty() && title.isNotEmpty() && date.isNotEmpty() && url.isNotEmpty()) {
+                        if (isNotice) {
+                            if (page < 2) {
+                                authorList.add(author)
+                                dateStringList.add(date)
+                                titleList.add(title)
+                                urlStringList.add(url)
+                                isNoticeList.add(isNotice)
                             }
-                            else -> {}
+                        } else {
+                            authorList.add(author)
+                            dateStringList.add(date)
+                            titleList.add(title)
+                            urlStringList.add(url)
+                            isNoticeList.add(isNotice)
                         }
                     }
-                        index += 1
-                    }
-                }
                 }
 
                 index = 0
-                var canFetchData = true
-                if (authorList.count() < 1) {
-                    canFetchData = false
-                }
 
                 for (num in authorList) {
-                    val noticeItem = Notice(authorList[index], titleList[index], pageStringList[index], dateStringList[index], isNoticeList[index])
+                    val noticeItem = Notice(authorList[index], titleList[index], urlStringList[index], dateStringList[index], isNoticeList[index])
 
                     noticeList.add(noticeItem)
                     index += 1
                 }
-                if (canFetchData)
-                    completion(noticeList)
+
+                completion(noticeList)
             } catch (error: Exception) {
                 print("Error : $error")
             }
@@ -208,8 +201,8 @@ object NoticeIT {
                 }
 
                 val subject = doc.select("td[class^=subject]")
-                for (product in subject.select("a[href]")) {
-                    var url = product.text() ?: ""
+                for (product in subject.select("a")) {
+                    var url = product.attr("href") ?: ""
                     url = url.replace("..", "https://sw.ssu.ac.kr")
                     titleList.add(product.text() ?: "")
                     urlList.add(url)
@@ -266,10 +259,8 @@ object NoticeIT {
         try {
             val doc = Jsoup.connect(requestURL).get()
                 for (product in doc.select("div[class^='list']")) {
-                    val urlhtml = if (INFOCOM_URL_PATTERN.matcher(product.html()).matches()) product.html() else ""
-                    val urlsplit = urlhtml.split("'")[0] ?: ""
-                    val urlInfo = urlsplit.replace("&amp;", "&")
-                    val url = "http://infocom.ssu.ac.kr$urlInfo"
+                    val url =
+                        "http://http://infocom.ssu.ac.kr/rb/?c=2/38&uid=${product.attr("onclick").split("'")[1].split("uid=")[1]}"
 
                     val strs = (product.select("div[class^='info']").first()?.text() ?: "").split("|")
 

@@ -153,10 +153,10 @@ object NoticeBusiness {
                 }
 
                 val bbsList = doc.select("table[class='bbs-list']")
-                val hrefs = bbsList.select("a[href]")
-                hrefs.forEach {
-                    Log.d("Notice", it.text())
-                    urlList.add(it.text())
+                val hrefs = bbsList.select("a")
+                hrefs.map {
+                    Log.d("Notice", it.attr("href"))
+                    urlList.add(it.attr("href"))
                 }
             } catch (error: Exception) {
                 Log.d("Notice", "Error : $error")
@@ -229,10 +229,10 @@ object NoticeBusiness {
                 }
 
                 val bbsList = doc.select("table[class='bbs-list']")
-                val hrefs = bbsList.select("a[href]")
-                hrefs.forEach {
-                    Log.d("Notice", it.text())
-                    urlList.add(it.text())
+                val hrefs = bbsList.select("a")
+                hrefs.map {
+                    Log.d("Notice", it.attr("href"))
+                    urlList.add(it.attr("href"))
                 }
             } catch (error: Exception) {
                 Log.d("Notice", "Error : $error")
@@ -305,10 +305,10 @@ object NoticeBusiness {
                 }
 
                 val bbsList = doc.select("table[class='bbs-list']")
-                val hrefs = bbsList.select("a[href]")
-                hrefs.forEach {
-                    Log.d("Notice", it.text())
-                    urlList.add(it.text())
+                val hrefs = bbsList.select("a")
+                hrefs.map {
+                    Log.d("Notice", it.attr("href"))
+                    urlList.add(it.attr("href"))
                 }
             } catch (error: Exception) {
                 Log.d("Notice", "Error : $error")

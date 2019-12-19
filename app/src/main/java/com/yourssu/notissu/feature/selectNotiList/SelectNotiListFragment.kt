@@ -81,6 +81,10 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
                 if (dy > 0 && notiList.size > 0) {
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     if (layoutManager.findLastCompletelyVisibleItemPosition() == notiList.size - 1) {
+                        if (animationView != null) {
+                            animationView.playAnimation()
+                            animationView.visibility = View.VISIBLE
+                        }
                         getNotice()
                     }
                 }
@@ -98,10 +102,6 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
             }
             // UI data update from UI thread
             // Hide Progress from UI thread
-            if (animationView != null) {
-                animationView.cancelAnimation()
-                animationView.visibility = View.GONE
-            }
             nextPage += 1
             update()
         }
@@ -111,5 +111,9 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
         notiList.addAll(result)
         mAdapter.submitList(notiList)
         mAdapter.notifyDataSetChanged()
+        if (animationView != null) {
+            animationView.cancelAnimation()
+            animationView.visibility = View.GONE
+        }
     }
 }

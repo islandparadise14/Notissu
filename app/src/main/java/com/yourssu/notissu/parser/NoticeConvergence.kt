@@ -53,6 +53,7 @@ object NoticeConvergence {
                             dateStringList.add(content)
                         }
                         5 -> {}
+                        else -> {}
                     }
                     index += 1
                 }
