@@ -19,7 +19,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:lottie_autoPlay="true"
+        app:lottie_autoPlay="false"
         app:lottie_fileName="notissu_anim.json"
         app:lottie_loop="true"/>
 </FrameLayout>

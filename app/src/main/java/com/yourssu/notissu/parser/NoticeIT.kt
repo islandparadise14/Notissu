@@ -46,7 +46,7 @@ object NoticeIT {
                     for (td in tds){
                         when (tdIndex) {
                             0 -> {
-                                isNotice = !isNumeric(td.text())
+                                isNotice = !td.text().isNumeric()
                             }
                             1 -> {
                                 title = td.select("a").text()
@@ -132,7 +132,7 @@ object NoticeIT {
                 for (product in doc.select("td[align='center']")) {
                     if (index % 4 == 0) {
                         val isNotice = product.text() ?: ""
-                        if (!isNumeric(isNotice)) {
+                        if (!isNotice.isNumeric()) {
                             isNoticeList.add(true)
                         } else {
                             isNoticeList.add(false)

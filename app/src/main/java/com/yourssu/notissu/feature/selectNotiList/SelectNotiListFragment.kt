@@ -1,6 +1,7 @@
 package com.yourssu.notissu.feature.selectNotiList
 
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yourssu.notissu.R
 import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.utils.NetworkCheck
 import kotlinx.android.synthetic.main.fragment_select_noti_list.*
 import kotlinx.android.synthetic.main.fragment_select_noti_list.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -33,32 +35,17 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
     private lateinit var mAdapter: NoticeAdapter
     private var nextPage = 1
 
-    private val mArticleDiffCallback = object : DiffUtil.ItemCallback<Notice>() {
-        override fun areItemsTheSame(oldItem: Notice, newItem: Notice): Boolean {
-            return oldItem.title == newItem.title
-        }
-
-        override fun areContentsTheSame(oldItem: Notice, newItem: Notice): Boolean {
-            return (oldItem.title == newItem.title) && (oldItem.url == newItem.url)
-        }
-    }
-
-    private val complete = { noticeList: ArrayList<Notice> ->
-        result = noticeList
-    }
-
-    private val clicked = { url: String? ->
-        Toast.makeText(activity, url ?: "", Toast.LENGTH_SHORT).show()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_select_noti_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_select_noti_list, container, false)
+
         presenter = SelectNotiListPresenter()
         presenter.view = this@SelectNotiListFragment
+
+        presenter.checkNetwork(context)
 
         addScrollListener(view)
 
@@ -81,10 +68,6 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
                 if (dy > 0 && notiList.size > 0) {
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     if (layoutManager.findLastCompletelyVisibleItemPosition() == notiList.size - 1) {
-                        if (animationView != null) {
-                            animationView.playAnimation()
-                            animationView.visibility = View.VISIBLE
-                        }
                         getNotice()
                     }
                 }
@@ -95,6 +78,10 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
     fun getNotice() {
         CoroutineScope(Dispatchers.Main).launch {
             // Show progress from UI thread
+            if (animationView != null) {
+                animationView.playAnimation()
+                animationView.visibility = View.VISIBLE
+            }
 
             withContext(CoroutineScope(Dispatchers.Default).coroutineContext) {
                 // background thread
@@ -104,6 +91,11 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
             // Hide Progress from UI thread
             nextPage += 1
             update()
+
+            if (animationView != null) {
+                animationView.cancelAnimation()
+                animationView.visibility = View.GONE
+            }
         }
     }
 
@@ -111,9 +103,23 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
         notiList.addAll(result)
         mAdapter.submitList(notiList)
         mAdapter.notifyDataSetChanged()
-        if (animationView != null) {
-            animationView.cancelAnimation()
-            animationView.visibility = View.GONE
+    }
+
+    private val mArticleDiffCallback = object : DiffUtil.ItemCallback<Notice>() {
+        override fun areItemsTheSame(oldItem: Notice, newItem: Notice): Boolean {
+            return oldItem.title == newItem.title
         }
+
+        override fun areContentsTheSame(oldItem: Notice, newItem: Notice): Boolean {
+            return (oldItem.title == newItem.title) && (oldItem.url == newItem.url)
+        }
+    }
+
+    private val complete = { noticeList: ArrayList<Notice> ->
+        result = noticeList
+    }
+
+    private val clicked = { url: String? ->
+        Toast.makeText(activity, url ?: "", Toast.LENGTH_SHORT).show()
     }
 }

@@ -102,7 +102,7 @@ object NoticeEngineer {
                     val date = product.select("td[class^='date']").first()?.text()?.trim() ?: ""
 
                     if (index > 0) {
-                        if (isNumeric(number)) {
+                        if (number.isNumeric()) {
                             // normal
                             isNoticeList.add(false)
                         } else {
@@ -163,7 +163,7 @@ object NoticeEngineer {
         try {
             val doc = Jsoup.connect(requestURL).get()
                 for (product in doc.select("div[class^='num']")) {
-                    isNoticeList.add(!(isNumeric(product.text())))
+                    isNoticeList.add(!(product.text().isNumeric()))
                 }
 
                 for (product in doc.select("div[class^='subject']")) {

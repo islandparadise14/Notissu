@@ -7,6 +7,8 @@
     <dist:module dist:instant="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +20,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name="com.yourssu.notissu.feature.openSource.OpenSourceActivity"></activity>
+        <activity android:name="com.yourssu.notissu.feature.openSource.OpenSourceActivity" />
         <activity android:name="com.yourssu.notissu.feature.notiDetail.NotiDetailActivity" />
         <activity android:name="com.yourssu.notissu.feature.majorNotiList.MajorNotiActivity" />
         <activity android:name="com.yourssu.notissu.feature.main.MainActivity" />

@@ -1,8 +1,12 @@
 package com.yourssu.notissu.feature.selectNotiList
 
+import android.content.Context
+import android.os.Build
 import android.view.View
+import android.widget.Toast
 import com.yourssu.notissu.model.Notice
 import com.yourssu.notissu.parser.*
+import com.yourssu.notissu.utils.NetworkCheck
 
 class SelectNotiListPresenter : SelectNotiListContract.Presenter {
     override lateinit var view: SelectNotiListContract.View
@@ -47,6 +51,20 @@ class SelectNotiListPresenter : SelectNotiListContract.Presenter {
             35 -> {NoticeSocial.parseListLifeLong(page= page, keyword = keyword, completion = complete)}
             36 -> {NoticeSocial.parseListPolitical(page= page, keyword = keyword, completion = complete)}
             37 -> {NoticeConvergence.parseListConvergence(page= page, keyword = keyword, completion = complete)}
+        }
+    }
+
+    override fun checkNetwork(context: Context?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            context?.let {
+                if (NetworkCheck().getConnectivityStatus(it) == 0)
+                    Toast.makeText(it, "인터넷연결을 확인해주세요", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            context?.let {
+                if (NetworkCheck().getConnectivityStatusforLowVersion(it) == 0)
+                    Toast.makeText(it, "인터넷연결을 확인해주세요", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

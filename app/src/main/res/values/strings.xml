@@ -31,6 +31,11 @@
 
     <string name="my_major">나의 전공</string>
     <string name="open_source">오픈소스 사용 정보</string>
+    <string name="developer">개발자 정보</string>
     <string name="github">개발자 GitHub 방문하기</string>
     <string name="recommend">추천 앱 사용하기</string>
+
+    <string name="developer_info">숭실대학교 전자정보공학부\n14학번 박정현\n\n확인을 누르시면 문의를 위한 메일 앱이 실행됩니다</string>
+    <string name="github_info">개발자의 GitHub 사이트에 접속합니다</string>
+    <string name="recommend_info">숭실대 커뮤니티 그라운드를 설치합니다</string>
 </resources>

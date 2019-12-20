@@ -105,7 +105,7 @@ object NoticeSocial {
                     val content = product.text().trim()
                     when (index % 5) {
                         0 -> {
-                            isNoticeList.add(!isNumeric((product.text() ?: "")))
+                            isNoticeList.add(!(product.text() ?: "").isNumeric())
                         }
                         1 -> {
                             // Title
@@ -328,7 +328,7 @@ object NoticeSocial {
                     print(content)
                     when (index % 5) {
                         0 -> {
-                            if (page > 1 && !isNumeric(content)) {
+                            if (page > 1 && !content.isNumeric()) {
                                 isAdd = false
                                 boldCount += 1
                             } else {

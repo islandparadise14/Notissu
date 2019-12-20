@@ -1,5 +1,6 @@
 package com.yourssu.notissu.feature.selectNotiList
 
+import android.content.Context
 import android.view.View
 import com.yourssu.notissu.model.Notice
 
@@ -11,5 +12,7 @@ interface SelectNotiListContract {
         var view: View
 
         fun loadItem(majorNumber: Int, page: Int, keyword: String?, complete: (ArrayList<Notice>) -> Unit)
+
+        fun checkNetwork(context: Context?)
     }
 }
