@@ -11,7 +11,7 @@ import com.yourssu.notissu.R
 import com.yourssu.notissu.model.Notice
 import kotlinx.android.synthetic.main.item_noti.view.*
 
-class NoticeAdapter(callback : DiffUtil.ItemCallback<Notice>, var notices: ArrayList<Notice>?, val clicked: (String?) -> Unit) : ListAdapter<Notice, RecyclerView.ViewHolder>(callback) {
+class NoticeAdapter(callback : DiffUtil.ItemCallback<Notice>, var notices: ArrayList<Notice>?, val clicked: (String?, String?, String?) -> Unit) : ListAdapter<Notice, RecyclerView.ViewHolder>(callback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val itemView = inflater.inflate(R.layout.item_noti, parent, false)
@@ -27,15 +27,17 @@ class NoticeAdapter(callback : DiffUtil.ItemCallback<Notice>, var notices: Array
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         notices?.let {
-            holder.itemView.listNotiTitle.text = it[position].title
-            holder.itemView.listNotiDate.text = it[position].date
+            val title = it[position].title
+            val date = it[position].date
             val url = it[position].url
+            holder.itemView.listNotiTitle.text = title
+            holder.itemView.listNotiDate.text = date
             if (it[position].isNotice == true)
                 holder.itemView.listIsNoti.visibility = View.VISIBLE
             else
                 holder.itemView.listIsNoti.visibility = View.GONE
 
-            holder.itemView.setOnClickListener { clicked(url) }
+            holder.itemView.setOnClickListener { clicked(title, date, url) }
         }
     }
 

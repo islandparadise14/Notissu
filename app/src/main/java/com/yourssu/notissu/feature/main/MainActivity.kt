@@ -3,10 +3,8 @@ package com.yourssu.notissu.feature.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.yourssu.notissu.R
-import com.yourssu.notissu.data.FragmentData
 import com.yourssu.notissu.data.MAJOR_INTENT_KEY
 import com.yourssu.notissu.data.MajorData
 import com.yourssu.notissu.data.MAJOR_KEY
@@ -82,5 +80,34 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().hide(fragmentMyMajor).commit()
         for (fragment in fragments)
             supportFragmentManager.beginTransaction().hide(fragment).commit()
+    }
+
+    fun intentActivity(position: Int) {
+        val intent = Intent(this, MajorNotiActivity::class.java)
+        intent.putExtra(MAJOR_INTENT_KEY, position)
+        startActivityForResult(intent, 1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == 1) {
+            supportFragmentManager.beginTransaction().detach(fragments[0]).commit()
+            majorName = MajorData.getInstance().getMajorByIndex(SharedPreferenceUtil.getInt(MAJOR_KEY)).name
+            fragments.clear()
+            fragments.add(MajorListFragment.getInstance())
+            fragments.add(SearchFragment.getInstance(application))
+            fragments.add(MyInfoFragment.getInstance())
+
+            for (fragment in fragments)
+                supportFragmentManager.beginTransaction().add(R.id.main_container, fragment).commit()
+
+            fragmentMyMajor = SelectNotiListFragment.getInstance(SharedPreferenceUtil.getInt(MAJOR_KEY), null)
+            supportFragmentManager.beginTransaction().add(R.id.main_container ,fragmentMyMajor).commit()
+            fragmentHide()
+            supportFragmentManager.beginTransaction().show(fragmentMyMajor).commit()
+
+            mainTopBar.setTitle(majorName)
+            bottomNavigationView.selectedItemId = R.id.my_notification
+        }
     }
 }

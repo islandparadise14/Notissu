@@ -3,5 +3,6 @@
     <declare-styleable name="NotissuTopbar">
         <attr name="setBackButton" format="boolean"/>
         <attr name="setPlusButton" format="boolean"/>
+        <attr name="setWebButton" format="boolean"/>
     </declare-styleable>
 </resources>

@@ -7,12 +7,19 @@
     tools:context=".feature.selectNotiList.SelectNotiListFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notiListRecycler"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_noti"/>
+        android:id="@+id/refresh">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notiListRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_noti"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"

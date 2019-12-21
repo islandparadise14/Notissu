@@ -38,4 +38,12 @@
     <string name="developer_info">숭실대학교 전자정보공학부\n14학번 박정현\n\n확인을 누르시면 문의를 위한 메일 앱이 실행됩니다</string>
     <string name="github_info">개발자의 GitHub 사이트에 접속합니다</string>
     <string name="recommend_info">숭실대 커뮤니티 그라운드를 설치합니다</string>
+
+    <string name="download">다운로드</string>
+    <string name="download_info">파일을 다운로드 하시겠습니까?</string>
+
+    <string name="major_change">메인 전공으로 등록하면 첫 화면에 해당 전공 공지사항이 표시됩니다</string>
+    <string name="noti_browser">현재 공지를 브라우저로 연결합니다</string>
+
+    <string name="copy_right">Copyright 2019 JunghyunPark All rights reserved</string>
 </resources>

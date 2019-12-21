@@ -51,6 +51,7 @@ class SelectNotiListPresenter : SelectNotiListContract.Presenter {
             35 -> {NoticeSocial.parseListLifeLong(page= page, keyword = keyword, completion = complete)}
             36 -> {NoticeSocial.parseListPolitical(page= page, keyword = keyword, completion = complete)}
             37 -> {NoticeConvergence.parseListConvergence(page= page, keyword = keyword, completion = complete)}
+            38 -> {NoticeEngineer.parseListArchitecture(page=page, keyword = keyword, completion = complete)}
         }
     }
 

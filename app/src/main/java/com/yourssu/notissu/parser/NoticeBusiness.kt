@@ -75,12 +75,10 @@ object NoticeBusiness {
                 }
                 index += 1
             }
-            val urlContainers = doc.select("ul[id='bList01']")
-            val product = urlContainers.select("div")
-            val hrefs = product.select("a[href]")
-            hrefs.forEach { href ->
-                Log.d("Notice", href.toString())
-                urlList.add("http://biz.ssu.ac.kr$href")
+            for (product in doc.select("ul[id='bList01'] div a"))
+            {
+                Log.d("Notice", product.attr("href").toString())
+                urlList.add("http://biz.ssu.ac.kr${product.attr("href")}")
             }
         } catch (error: Exception) {
             Log.d("Notice", "Error : $error")

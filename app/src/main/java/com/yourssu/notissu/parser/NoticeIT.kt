@@ -119,10 +119,8 @@ object NoticeIT {
         try {
             val doc = Jsoup.connect(requestURL).get()
                 for (product in doc.select("table tbody tr a")) {
-                    val noticeId = if (MEDIA_NOTICE_ID_PATTERN.matcher(product.attr("onclick")).matches())
-                        product.attr("onclick")
-                    else
-                        ""
+                    val noticeIdText = product.attr("onclick")
+                    val noticeId = noticeIdText.split("'")[1]
                     val url = "http://media.ssu.ac.kr/sub.php?code=XxH00AXY&mode=view&board_num=$noticeId&category=1"
                     urlList.add(url)
                     titleList.add(product.text() ?: "")
@@ -260,7 +258,7 @@ object NoticeIT {
             val doc = Jsoup.connect(requestURL).get()
                 for (product in doc.select("div[class^='list']")) {
                     val url =
-                        "http://http://infocom.ssu.ac.kr/rb/?c=2/38&uid=${product.attr("onclick").split("'")[1].split("uid=")[1]}"
+                        "http://infocom.ssu.ac.kr/rb/?c=2/38&uid=${product.attr("onclick").split("'")[1].split("uid=")[1]}"
 
                     val strs = (product.select("div[class^='info']").first()?.text() ?: "").split("|")
 

@@ -332,4 +332,50 @@ object NoticeEngineer {
             // 17
             completion(noticeList)
     }
+
+    @JvmStatic
+    fun parseListArchitecture(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+        val noticeUrl = NoticeURL.engineerArchitectureURL
+        val noticeList = ArrayList<Notice>()
+        val authorList = ArrayList<String>()
+        val titleList  = ArrayList<String>()
+        val urlList = ArrayList<String>()
+        val dateStringList = ArrayList<String>()
+        val requestURL: String
+
+        requestURL = noticeUrl
+
+        if (page < 2) {
+            try {
+                val doc = Jsoup.connect(requestURL).get()
+                for (product in doc.select("table[class^=table] tbody tr")) {
+                    val content = product.select("td")
+                    if (keyword == null) {
+                        titleList.add(content[0].select("span").text() + content[1].text())
+                        authorList.add(content[0].select("span").text())
+                        dateStringList.add(content[2].text())
+                        urlList.add("http://soar.ssu.ac.kr" + product.attr("href"))
+                    } else {
+                        if (content[1].text().contains(keyword)) {
+                            titleList.add(content[0].select("span").text() + content[1].text())
+                            authorList.add(content[0].select("span").text())
+                            dateStringList.add(content[2].text())
+                            urlList.add("http://soar.ssu.ac.kr" + product.attr("href"))
+                        }
+                    }
+                }
+
+            } catch (error: Exception) {
+                print("Error : $error")
+            }
+        }
+        var index = 0
+
+        for (num in urlList){
+            val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+            noticeList.add(noticeItem)
+            index += 1
+        }
+        completion(noticeList)
+    }
 }

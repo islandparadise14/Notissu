@@ -55,7 +55,9 @@ class MajorData {
                 Major(35, "평생교육학과", "LifeLong Education"),
                 Major(36, "정치외교학과", "Politics & International Relation"),
                 //convergence
-                Major(37, "융합특성화자유전공학부", "School of Convergence Specialization")
+                Major(37, "융합특성화자유전공학부", "School of Convergence Specialization"),
+                //architecture add
+                Major(38, "건축학부", "School of Architecture")
             )
         )
 
@@ -87,7 +89,10 @@ class MajorData {
 
     fun getHumanMajors(): ArrayList<Major> { return getCollegeMajors(7, 14) }
 
-    fun getEngineerMajors(): ArrayList<Major> { return getCollegeMajors(15, 19) }
+    fun getEngineerMajors(): ArrayList<Major> {
+        val sum = getCollegeMajors(15, 19)
+        sum.add(majors[38])
+        return sum }
 
     fun getScienceMajors(): ArrayList<Major> { return getCollegeMajors(20, 24) }
 

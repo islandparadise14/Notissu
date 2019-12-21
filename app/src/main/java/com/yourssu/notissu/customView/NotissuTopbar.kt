@@ -13,6 +13,7 @@ class NotissuTopbar: ConstraintLayout {
     private var topbarContext: Context = context
     private var isBackButton: Boolean = false
     private var isPlusButton: Boolean = false
+    private var isWebButton:Boolean = false
 
     constructor(context: Context) : super(context){
         initView(context, null)
@@ -46,6 +47,7 @@ class NotissuTopbar: ConstraintLayout {
 
         isBackButton = array.getBoolean(R.styleable.NotissuTopbar_setBackButton, false)
         isPlusButton = array.getBoolean(R.styleable.NotissuTopbar_setPlusButton, false)
+        isWebButton = array.getBoolean(R.styleable.NotissuTopbar_setWebButton, false)
 
         array.recycle()
 
@@ -55,6 +57,7 @@ class NotissuTopbar: ConstraintLayout {
     private fun settingView() {
         backButton.visibility = if (isBackButton) View.VISIBLE else View.GONE
         plusButton.visibility = if (isPlusButton) View.VISIBLE else View.GONE
+        webButton.visibility = if (isWebButton) View.VISIBLE else View.GONE
     }
 
     fun setTitle(title: String) {
@@ -69,6 +72,12 @@ class NotissuTopbar: ConstraintLayout {
 
     fun setPlusButtonClicked(click: () -> Unit) {
         plusButton.setOnClickListener {
+            click()
+        }
+    }
+
+    fun setWebButtonClicked(click: () -> Unit) {
+        webButton.setOnClickListener {
             click()
         }
     }

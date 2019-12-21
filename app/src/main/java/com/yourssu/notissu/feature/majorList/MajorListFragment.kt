@@ -75,8 +75,6 @@ class MajorListFragment : Fragment(), MajorListContract.View {
     }
 
     val clicked = { position: Int ->
-        val intent = Intent(activity, MajorNotiActivity::class.java)
-        intent.putExtra(MAJOR_INTENT_KEY, position)
-        startActivity(intent)
+        (activity as MainActivity).intentActivity(position)
     }
 }
