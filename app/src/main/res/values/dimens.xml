@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_nav_height">56dp</dimen>
+    <dimen name="top_bar_height">46dp</dimen>
+    <dimen name="file_layout_height">120dp</dimen>
+</resources>

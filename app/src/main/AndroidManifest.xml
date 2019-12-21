@@ -2,31 +2,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.notissu">
+    package="com.yourssu.notissu">
 
     <dist:module dist:instant="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".feature.main.MainActivity" />
-        <activity android:name=".feature.splash.SplashActivity">
+        <activity android:name="com.yourssu.notissu.feature.openSource.OpenSourceActivity" />
+        <activity android:name="com.yourssu.notissu.feature.notiDetail.NotiDetailActivity" />
+        <activity android:name="com.yourssu.notissu.feature.majorNotiList.MajorNotiActivity" />
+        <activity android:name="com.yourssu.notissu.feature.main.MainActivity" />
+        <activity android:name="com.yourssu.notissu.feature.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.selectMajor.SelectMajorActivity" />
+        <activity android:name="com.yourssu.notissu.feature.selectMajor.SelectMajorActivity" />
     </application>
 
 </manifest>

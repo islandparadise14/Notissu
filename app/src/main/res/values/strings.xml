@@ -10,6 +10,40 @@
     <string name="search">검색</string>
     <string name="more">더보기</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="it">IT 대학</string>
+    <string name="law">법과대학</string>
+    <string name="humanities">인문대학</string>
+    <string name="engineer">공과대학</string>
+    <string name="science">자연과학대학</string>
+    <string name="biz">경영대학</string>
+    <string name="eco">경제통상대학</string>
+    <string name="social">사회과학대학</string>
+    <string name="convergence">융합특성화자유전공학부</string>
+
+    <string name="noti_string">공지</string>
+
+    <string name="search_major">전공을 선택해주세요</string>
+    <string name="input_keyword">검색어 입력</string>
+    <string name="do_search">검색하기</string>
+
+    <string name="can_search">검색가능 전공</string>
+    <string name="can_search_list">IT 대학\n법과대학\n인문대학\n공과대학\n자연과학대학\n경영대학\n경제통상대학\n사회과학대학\n융합특성화자유전공학부\n</string>
+
+    <string name="my_major">나의 전공</string>
+    <string name="open_source">오픈소스 사용 정보</string>
+    <string name="developer">개발자 정보</string>
+    <string name="github">개발자 GitHub 방문하기</string>
+    <string name="recommend">추천 앱 사용하기</string>
+
+    <string name="developer_info">숭실대학교 전자정보공학부\n14학번 박정현\n\n확인을 누르시면 문의를 위한 메일 앱이 실행됩니다</string>
+    <string name="github_info">개발자의 GitHub 사이트에 접속합니다</string>
+    <string name="recommend_info">숭실대 커뮤니티 그라운드를 설치합니다</string>
+
+    <string name="download">다운로드</string>
+    <string name="download_info">파일을 다운로드 하시겠습니까?</string>
+
+    <string name="major_change">메인 전공으로 등록하면 첫 화면에 해당 전공 공지사항이 표시됩니다</string>
+    <string name="noti_browser">현재 공지를 브라우저로 연결합니다</string>
+
+    <string name="copy_right">Copyright 2019 JunghyunPark All rights reserved</string>
 </resources>

@@ -21,11 +21,11 @@
 
     <!-- inactive tab icon style -->
     <style name="TextAppearance.BottomNavigationView.Inactive">
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">10dp</item>
     </style>
 
     <!-- active tab icon style -->
     <style name="TextAppearance.BottomNavigationView.Active">
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">10dp</item>
     </style>
 </resources>
