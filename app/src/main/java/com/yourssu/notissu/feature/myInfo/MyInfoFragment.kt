@@ -9,10 +9,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.yourssu.notissu.R
 import com.yourssu.notissu.data.MAJOR_KEY
 import com.yourssu.notissu.data.MajorData
+import com.yourssu.notissu.feature.main.MainActivity
 import com.yourssu.notissu.feature.openSource.OpenSourceActivity
 import com.yourssu.notissu.utils.AlertDialogUtil
 import com.yourssu.notissu.utils.SharedPreferenceUtil
@@ -90,6 +92,13 @@ class MyInfoFragment : Fragment() {
                     }
                     dialog.cancel()
                 }) }
+        }
+        view.my_info.setOnClickListener {
+            context?.let { AlertDialogUtil.createMajorListDialog(MajorData.getInstance().getMajors().map { t -> t.name }, it, SharedPreferenceUtil.getInt(MAJOR_KEY)) { position ->
+                SharedPreferenceUtil.setIntValue(MAJOR_KEY, position)
+                (activity as MainActivity).refreshFragment()
+            }
+            }
         }
     }
 }

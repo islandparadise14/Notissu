@@ -30,7 +30,7 @@ object NoticeSSUCatch {
             val doc = Jsoup.connect(requestURL).get()
             for (product in doc.select("div[class='row no-gutters align-items-center']")) {
                 dateStringList.add(product.select("div[class^=notice_col1] div")[0].text())
-                titleList.add(product.select("span[class^=label]")[0].text() + product.select("span[class^=d-inline]")[0].text())
+                titleList.add("[${product.select("span[class^=label]")[0].text()}] ${product.select("span[class^=d-inline]")[0].text()}")
                 authorList.add(product.select("div[class=notice_col4]")[0].text())
                 urlList.add(product.select("a").attr("href"))
             }

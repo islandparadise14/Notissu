@@ -85,14 +85,19 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == 1) {
-            supportFragmentManager.beginTransaction().detach(fragments[1]).commit()
-            majorName = MajorData.getInstance().getMajorByIndex(SharedPreferenceUtil.getInt(MAJOR_KEY)).name
-            fragments.clear()
-            fragmentInit()
-
-            mainTopBar.setTitle(majorName)
-            bottomNavigationView.selectedItemId = R.id.my_notification
+            refreshFragment()
         }
+    }
+
+    fun refreshFragment(){
+        for (fragment in fragments)
+            supportFragmentManager.beginTransaction().detach(fragment).commit()
+        majorName = MajorData.getInstance().getMajorByIndex(SharedPreferenceUtil.getInt(MAJOR_KEY)).name
+        fragments.clear()
+        fragmentInit()
+
+        mainTopBar.setTitle(majorName)
+        bottomNavigationView.selectedItemId = R.id.my_notification
     }
 
     private fun fragmentInit() {
