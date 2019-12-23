@@ -46,4 +46,7 @@
     <string name="noti_browser">현재 공지를 브라우저로 연결합니다</string>
 
     <string name="copy_right">Copyright 2019 JunghyunPark All rights reserved</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

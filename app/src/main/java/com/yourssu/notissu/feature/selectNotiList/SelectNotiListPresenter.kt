@@ -13,6 +13,7 @@ class SelectNotiListPresenter : SelectNotiListContract.Presenter {
 
     override fun loadItem(majorNumber: Int, page: Int, keyword: String?, complete: (ArrayList<Notice>) -> Unit) {
         when (majorNumber) {
+            -1 -> {NoticeSSUCatch.parseListSSUCatch(page= page, keyword = keyword, completion = complete)}
             0 -> {NoticeIT.parseListComputer(page= page, keyword = keyword, completion = complete)}
             1 -> {NoticeIT.parseListMedia(page= page, keyword = keyword, completion = complete)}
             2 -> {NoticeIT.parseListElectric(page= page, keyword = keyword, completion = complete)}

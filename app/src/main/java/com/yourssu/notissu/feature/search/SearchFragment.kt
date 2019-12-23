@@ -67,7 +67,7 @@ class SearchFragment(private val application: Application) : Fragment(), SearchC
 
         mView.spinnerMajor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                majorNumber = position
+                majorNumber = position - 1
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 

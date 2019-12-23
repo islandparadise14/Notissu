@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private lateinit var majorName: String
     private var fragments :ArrayList<Fragment> = ArrayList()
-    private lateinit var fragmentMyMajor: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationSetting()
 
-        fragments.add(MajorListFragment.getInstance())
-        fragments.add(SearchFragment.getInstance(application))
-        fragments.add(MyInfoFragment.getInstance())
-
-        for (fragment in fragments)
-            supportFragmentManager.beginTransaction().add(R.id.main_container, fragment).commit()
-
-        fragmentMyMajor = SelectNotiListFragment.getInstance(SharedPreferenceUtil.getInt(MAJOR_KEY), null)
-        supportFragmentManager.beginTransaction().add(R.id.main_container ,fragmentMyMajor).commit()
-        fragmentHide()
-        supportFragmentManager.beginTransaction().show(fragmentMyMajor).commit()
+        fragmentInit()
     }
 
     private fun bottomNavigationSetting() {
@@ -50,25 +39,31 @@ class MainActivity : AppCompatActivity() {
                 R.id.my_notification -> {
                     mainTopBar.setTitle(majorName)
                     fragmentHide()
-                    supportFragmentManager.beginTransaction().show(fragmentMyMajor).commit()
+                    supportFragmentManager.beginTransaction().show(fragments[0]).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.major_list -> {
                     mainTopBar.setTitle("전공목록")
                     fragmentHide()
-                    supportFragmentManager.beginTransaction().show(fragments[0]).commit()
+                    supportFragmentManager.beginTransaction().show(fragments[1]).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.school_notification -> {
+                    mainTopBar.setTitle("SSU:Catch")
+                    fragmentHide()
+                    supportFragmentManager.beginTransaction().show(fragments[2]).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.major_search -> {
                     mainTopBar.setTitle("검색")
                     fragmentHide()
-                    supportFragmentManager.beginTransaction().show(fragments[1]).commit()
+                    supportFragmentManager.beginTransaction().show(fragments[3]).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.more -> {
                     mainTopBar.setTitle("더보기")
                     fragmentHide()
-                    supportFragmentManager.beginTransaction().show(fragments[2]).commit()
+                    supportFragmentManager.beginTransaction().show(fragments[4]).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> {return@setOnNavigationItemSelectedListener false}
@@ -77,7 +72,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fragmentHide() {
-        supportFragmentManager.beginTransaction().hide(fragmentMyMajor).commit()
         for (fragment in fragments)
             supportFragmentManager.beginTransaction().hide(fragment).commit()
     }
@@ -91,23 +85,32 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == 1) {
-            supportFragmentManager.beginTransaction().detach(fragments[0]).commit()
-            majorName = MajorData.getInstance().getMajorByIndex(SharedPreferenceUtil.getInt(MAJOR_KEY)).name
-            fragments.clear()
-            fragments.add(MajorListFragment.getInstance())
-            fragments.add(SearchFragment.getInstance(application))
-            fragments.add(MyInfoFragment.getInstance())
-
-            for (fragment in fragments)
-                supportFragmentManager.beginTransaction().add(R.id.main_container, fragment).commit()
-
-            fragmentMyMajor = SelectNotiListFragment.getInstance(SharedPreferenceUtil.getInt(MAJOR_KEY), null)
-            supportFragmentManager.beginTransaction().add(R.id.main_container ,fragmentMyMajor).commit()
-            fragmentHide()
-            supportFragmentManager.beginTransaction().show(fragmentMyMajor).commit()
-
-            mainTopBar.setTitle(majorName)
-            bottomNavigationView.selectedItemId = R.id.my_notification
+            refreshFragment()
         }
+    }
+
+    fun refreshFragment(){
+        for (fragment in fragments)
+            supportFragmentManager.beginTransaction().detach(fragment).commit()
+        majorName = MajorData.getInstance().getMajorByIndex(SharedPreferenceUtil.getInt(MAJOR_KEY)).name
+        fragments.clear()
+        fragmentInit()
+
+        mainTopBar.setTitle(majorName)
+        bottomNavigationView.selectedItemId = R.id.my_notification
+    }
+
+    private fun fragmentInit() {
+        fragments.add(SelectNotiListFragment.getInstance(SharedPreferenceUtil.getInt(MAJOR_KEY), null))
+        fragments.add(MajorListFragment.getInstance())
+        fragments.add(SelectNotiListFragment.getInstance(-1, null))
+        fragments.add(SearchFragment.getInstance(application))
+        fragments.add(MyInfoFragment.getInstance())
+
+        for (fragment in fragments)
+            supportFragmentManager.beginTransaction().add(R.id.main_container, fragment).commit()
+
+        fragmentHide()
+        supportFragmentManager.beginTransaction().show(fragments[0]).commit()
     }
 }

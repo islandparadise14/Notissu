@@ -63,7 +63,7 @@ object DetailNoticeIT {
         try {
             val doc = Jsoup.connect(url).get()
             htmlString =
-                doc.select("div[id=vContent]").html().replace("src=\"","src=\"http://infocom.ssu.ac.kr/")
+                doc.select("div[id=vContent]").html()
             for (product in doc.select("div[id=vContent] a"))
                 fileList.add(File(product.text(), "http://infocom.ssu.ac.kr${product.attr("href")}"))
         } catch (error: Exception) {
