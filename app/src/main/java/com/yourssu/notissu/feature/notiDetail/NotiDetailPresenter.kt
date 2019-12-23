@@ -12,6 +12,7 @@ class NotiDetailPresenter: NotiDetailContract.Presenter {
 
     override fun loadItem(majorNumber: Int, url: String, complete: (NoticeDetail) -> Unit) {
         when (majorNumber) {
+            -1 -> {DetailNoticeSSUCatch.parseSSUCatch(url = url, completion = complete)}
             0 -> {DetailNoticeIT.parseComputer(url= url, completion = complete)}
             1 -> {DetailNoticeIT.parseMedia(url= url, completion = complete)}
             2 -> {DetailNoticeIT.parseElectric(url= url, completion = complete)}

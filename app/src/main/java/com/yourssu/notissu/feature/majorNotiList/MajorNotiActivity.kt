@@ -26,7 +26,7 @@ class MajorNotiActivity : AppCompatActivity() {
     }
 
     fun initSetting() {
-        val majorNumber = intent.getIntExtra(MAJOR_INTENT_KEY, -1)
+        val majorNumber = intent.getIntExtra(MAJOR_INTENT_KEY, -2)
         val keyword = intent.getStringExtra(KEYWORD_INTENT_KEY)
         notissuTopbar.setBackButtonClicked { finish() }
         notissuTopbar.setPlusButtonClicked {
@@ -38,13 +38,20 @@ class MajorNotiActivity : AppCompatActivity() {
                 finish()
             }) }
 
-        if (majorNumber != -1) {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.majorNotiMain,
-                SelectNotiListFragment.getInstance(majorNumber, keyword)).commit()
-            notissuTopbar.setTitle(MajorData.getInstance().getMajorByIndex(majorNumber).name)
+        when {
+            majorNumber > -1 -> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.majorNotiMain,
+                    SelectNotiListFragment.getInstance(majorNumber, keyword)).commit()
+                notissuTopbar.setTitle(MajorData.getInstance().getMajorByIndex(majorNumber).name)
+            }
+            majorNumber == -1 -> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.majorNotiMain,
+                    SelectNotiListFragment.getInstance(majorNumber, keyword)).commit()
+                notissuTopbar.setTitle("SSU:Catch")
+            }
+            else -> Toast.makeText(applicationContext, "다시 시도해주세요", Toast.LENGTH_SHORT).show()
         }
-        else
-            Toast.makeText(applicationContext, "다시 시도해주세요", Toast.LENGTH_SHORT).show()
     }
 }
