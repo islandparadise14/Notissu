@@ -1,7 +1,13 @@
 # Notissu
 MVP, Jsoup, coroutine
 
-
+# Notissu
+Soongsil University Notice application by major.   
+![Version](https://img.shields.io/badge/license-Apache%202.0-red.svg?style=flat)
+![Platform](https://img.shields.io/badge/Platform-Android-orange.svg)
+![API](https://img.shields.io/badge/API-19%2B-green.svg)
+### License
+Apache 2.0 License
     
     
 
