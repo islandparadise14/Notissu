@@ -16,6 +16,15 @@ object DetailNoticeEngineer {
             val doc = Jsoup.connect(url).get()
             htmlString =
                 doc.select("div[class=body]").html().replace("src=\"","src=\"http://chemeng.ssu.ac.kr")
+            for (product in doc.select("div[class=files] div[class=fileLayer] a")) {
+                if (product.attr("class") != "divClose"){
+                    val split = product.attr("href").split("'")
+                    val boardId = split[1]
+                    val bIdx = split[3]
+                    val idx = split[5]
+                    fileList.add(File(product.attr("title"), "http://chemeng.ssu.ac.kr/module/board/download.php?boardid=$boardId&b_idx=$bIdx&idx=$idx"))
+                }
+            }
         } catch (error: Exception) {
             Log.e("error", "$error")
         }
@@ -47,7 +56,16 @@ object DetailNoticeEngineer {
         try {
             val doc = Jsoup.connect(url).get()
             htmlString =
-                doc.select("div[class=body]").html().replace("src=\"","src=\"https://me.ssu.ac.kr")
+                doc.select("div[class=body]").html().replace("src=\"","src=\"http://ee.ssu.ac.kr")
+            for (product in doc.select("div[class=files] div[class=fileLayer] a")) {
+                if (product.attr("class") != "divClose"){
+                    val split = product.attr("href").split("'")
+                    val boardId = split[1]
+                    val bIdx = split[3]
+                    val idx = split[5]
+                    fileList.add(File(product.attr("title"), "http://ee.ssu.ac.kr/module/board/download.php?boardid=$boardId&b_idx=$bIdx&idx=$idx"))
+                }
+            }
         } catch (error: Exception) {
             Log.e("error", "$error")
         }
