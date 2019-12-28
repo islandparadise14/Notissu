@@ -79,7 +79,7 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
         view.notiListRecycler.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && notiList.size > 0) {
+                if (dy >= 0 && notiList.size > 0) {
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     if (layoutManager.findLastCompletelyVisibleItemPosition() == notiList.size - 1) {
                         getNotice()
@@ -105,7 +105,8 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
             // Hide Progress from UI thread
             nextPage += 1
             update()
-            refresh.isRefreshing = false
+            if (refresh != null)
+                refresh.isRefreshing = false
             if (animationView != null) {
                 animationView.cancelAnimation()
                 animationView.visibility = View.GONE
