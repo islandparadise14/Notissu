@@ -56,18 +56,22 @@ class SelectNotiListPresenter : SelectNotiListContract.Presenter {
         }
     }
 
-    override fun checkNetwork(context: Context?) {
+    override fun checkNetwork(context: Context?): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             context?.let {
-                if (NetworkCheck().getConnectivityStatus(it) == 0)
+                if (NetworkCheck().getConnectivityStatus(it) == 0) {
                     Toast.makeText(it, "인터넷연결을 확인해주세요", Toast.LENGTH_SHORT).show()
+                    return false
+                }
             }
         } else {
             context?.let {
-                if (NetworkCheck().getConnectivityStatusforLowVersion(it) == 0)
+                if (NetworkCheck().getConnectivityStatusforLowVersion(it) == 0) {
                     Toast.makeText(it, "인터넷연결을 확인해주세요", Toast.LENGTH_SHORT).show()
+                    return false
+                }
             }
         }
+        return true
     }
-
 }
