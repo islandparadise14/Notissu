@@ -21,18 +21,24 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name="com.yourssu.notissu.feature.openSource.OpenSourceActivity" />
-        <activity android:name="com.yourssu.notissu.feature.notiDetail.NotiDetailActivity" />
-        <activity android:name="com.yourssu.notissu.feature.majorNotiList.MajorNotiActivity" />
-        <activity android:name="com.yourssu.notissu.feature.main.MainActivity" />
-        <activity android:name="com.yourssu.notissu.feature.splash.SplashActivity">
+        <activity android:name="com.yourssu.notissu.feature.openSource.OpenSourceActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.yourssu.notissu.feature.notiDetail.NotiDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.yourssu.notissu.feature.majorNotiList.MajorNotiActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.yourssu.notissu.feature.main.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.yourssu.notissu.feature.splash.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.yourssu.notissu.feature.selectMajor.SelectMajorActivity" />
+        <activity android:name="com.yourssu.notissu.feature.selectMajor.SelectMajorActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

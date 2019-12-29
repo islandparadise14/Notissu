@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         fragments.add(SelectNotiListFragment.getInstance(SharedPreferenceUtil.getInt(MAJOR_KEY), null))
         fragments.add(MajorListFragment.getInstance())
         fragments.add(SelectNotiListFragment.getInstance(-1, null))
-        fragments.add(SearchFragment.getInstance(application))
+        fragments.add(SearchFragment.getInstance())
         fragments.add(MyInfoFragment.getInstance())
 
         for (fragment in fragments)

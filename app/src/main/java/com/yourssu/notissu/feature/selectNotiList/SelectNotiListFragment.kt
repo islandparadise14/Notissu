@@ -31,7 +31,25 @@ import kotlinx.coroutines.withContext
 /**
  * A simple [Fragment] subclass.
  */
-class SelectNotiListFragment(private val majorNumber: Int, private val keyword: String?) : Fragment(), SelectNotiListContract.View {
+class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
+    private var majorNumber: Int = 0
+    private var keyword: String? = null
+
+    constructor()
+
+    constructor(majorNumber: Int, keyword: String?){
+        this.majorNumber = majorNumber
+        this.keyword = keyword
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            majorNumber = savedInstanceState.getInt("majorNumber")
+            keyword = savedInstanceState.getString("keyword")
+        }
+    }
+
     companion object {
         fun getInstance(majorNumber: Int, keyword: String?) = SelectNotiListFragment(majorNumber, keyword)
     }
@@ -141,5 +159,11 @@ class SelectNotiListFragment(private val majorNumber: Int, private val keyword: 
         intent.putExtra(URL_INTENT_KEY, url)
         intent.putExtra(MAJOR_INTENT_KEY, majorNumber)
         startActivity(intent)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("majorNumber", majorNumber)
+        outState.putString("keyword", keyword)
     }
 }
