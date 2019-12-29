@@ -17,6 +17,7 @@ class OpenSourceActivity : AppCompatActivity(), OpenSourceContract.View {
         setContentView(R.layout.activity_open_source)
 
         openSourceTitle.setTitle("오픈소스 사용정보")
+        openSourceTitle.setBackButtonClicked { finish() }
         presenter = OpenSourcePresenter()
         presenter.view = this@OpenSourceActivity
         presenter.data = OpenSourceData.getInstance()

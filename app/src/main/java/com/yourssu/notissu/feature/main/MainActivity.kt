@@ -1,13 +1,14 @@
 package com.yourssu.notissu.feature.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.yourssu.notissu.R
 import com.yourssu.notissu.data.MAJOR_INTENT_KEY
-import com.yourssu.notissu.data.MajorData
 import com.yourssu.notissu.data.MAJOR_KEY
+import com.yourssu.notissu.data.MajorData
 import com.yourssu.notissu.feature.majorList.MajorListFragment
 import com.yourssu.notissu.feature.majorNotiList.MajorNotiActivity
 import com.yourssu.notissu.feature.myInfo.MyInfoFragment
@@ -16,8 +17,12 @@ import com.yourssu.notissu.feature.selectNotiList.SelectNotiListFragment
 import com.yourssu.notissu.utils.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 @Suppress("CAST_NEVER_SUCCEEDS")
 class MainActivity : AppCompatActivity() {
+    val FINISH_INTERVAL_TIME: Long = 2000
+    private var backPressedTime: Long = 0
+
     private lateinit var majorName: String
     private var fragments :ArrayList<Fragment> = ArrayList()
 
@@ -112,5 +117,18 @@ class MainActivity : AppCompatActivity() {
 
         fragmentHide()
         supportFragmentManager.beginTransaction().show(fragments[0]).commit()
+    }
+
+    override fun onBackPressed() {
+        val tempTime = System.currentTimeMillis()
+        val intervalTime = tempTime - backPressedTime
+
+        if (intervalTime in 0..FINISH_INTERVAL_TIME) {
+            super.onBackPressed()
+        }
+        else {
+            backPressedTime = tempTime
+            Toast.makeText(applicationContext, resources.getString(R.string.back_click), Toast.LENGTH_SHORT).show()
+        }
     }
 }

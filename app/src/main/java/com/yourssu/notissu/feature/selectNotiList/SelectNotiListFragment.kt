@@ -35,6 +35,8 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
     private var majorNumber: Int = 0
     private var keyword: String? = null
 
+    private var isNetwork = true
+
     constructor()
 
     constructor(majorNumber: Int, keyword: String?){
@@ -70,7 +72,7 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
         presenter = SelectNotiListPresenter()
         presenter.view = this@SelectNotiListFragment
 
-        presenter.checkNetwork(context)
+        isNetwork = presenter.checkNetwork(context)
 
         addScrollListener(view)
 
@@ -136,6 +138,9 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
         notiList.addAll(result)
         mAdapter.submitList(notiList)
         mAdapter.notifyDataSetChanged()
+        if (result.size == 0 && notiList.size == 0 && isNetwork){
+            Toast.makeText(context, resources.getString(R.string.please_retry), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private val mArticleDiffCallback = object : DiffUtil.ItemCallback<Notice>() {

@@ -13,6 +13,6 @@ interface SelectNotiListContract {
 
         fun loadItem(majorNumber: Int, page: Int, keyword: String?, complete: (ArrayList<Notice>) -> Unit)
 
-        fun checkNetwork(context: Context?)
+        fun checkNetwork(context: Context?): Boolean
     }
 }
