@@ -1,4 +1,4 @@
-package com.yourssu.notissu.parser
+package com.yourssu.notissu.parser.detail
 
 import android.util.Log
 import com.yourssu.notissu.model.File
@@ -98,6 +98,15 @@ object DetailNoticeEngineer {
             val doc = Jsoup.connect(url).get()
             htmlString =
                 doc.select("td[style^=word]").html().replace("src=\"","src=\"http://materials.ssu.ac.kr")
+            var index = 0
+            for (product in doc.select("tbody tr td").select("a")) {
+                if (index < doc.select("tbody tr td").select("a").size - 3) {
+                    var url = product.attr("href")
+                    url = if (url.contains("http")) "" else "http://materials.ssu.ac.kr$url"
+                    fileList.add(File(product.text(), fileURL = url))
+                }
+                index += 1
+            }
         } catch (error: Exception) {
             Log.e("error", "$error")
         }

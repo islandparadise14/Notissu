@@ -1,4 +1,4 @@
-package com.yourssu.notissu.parser
+package com.yourssu.notissu.parser.list
 
 import com.yourssu.notissu.data.NoticeURL
 import com.yourssu.notissu.model.Notice

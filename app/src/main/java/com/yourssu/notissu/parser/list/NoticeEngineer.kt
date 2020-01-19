@@ -1,10 +1,9 @@
-package com.yourssu.notissu.parser
+package com.yourssu.notissu.parser.list
 
 import com.yourssu.notissu.data.NoticeURL
 import com.yourssu.notissu.model.Notice
 import com.yourssu.notissu.utils.isNumeric
 import org.jsoup.Jsoup
-import org.jsoup.select.Elements
 import java.lang.Exception
 import java.net.URLEncoder
 
