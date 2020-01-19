@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yourssu.notissu.R
 import com.yourssu.notissu.data.DATE_INTENT_KEY
 import com.yourssu.notissu.data.MAJOR_INTENT_KEY
@@ -124,7 +125,19 @@ class NotiDetailActivity : AppCompatActivity(), NotiDetailContract.View {
             DialogInterface.OnClickListener { dialog, _ ->
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 마시멜로우 버전과 같거나 이상이라면
                     if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+                        val rxPermissions = RxPermissions(this)
+                        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            .subscribe { isGranted ->
+                                if(isGranted) {
+                                    FileUtil.downloadFile(
+                                        applicationContext,
+                                        (url ?: ""),
+                                        (name ?: "").replace(" ", "")
+                                    )
+                                } else {
+                                    Toast.makeText(applicationContext, resources.getString(R.string.file_permission_fail), Toast.LENGTH_SHORT).show()
+                                }
+                            }
                     } else {
                         FileUtil.downloadFile(
                             applicationContext,
@@ -132,6 +145,12 @@ class NotiDetailActivity : AppCompatActivity(), NotiDetailContract.View {
                             (name ?: "").replace(" ", "")
                         )
                     }
+                } else {
+                    FileUtil.downloadFile(
+                        applicationContext,
+                        (url ?: ""),
+                        (name ?: "").replace(" ", "")
+                    )
                 }
                 dialog.cancel()
             })

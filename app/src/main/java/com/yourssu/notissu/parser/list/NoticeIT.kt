@@ -1,6 +1,5 @@
-package com.yourssu.notissu.parser
+package com.yourssu.notissu.parser.list
 
-import com.yourssu.notissu.data.MEDIA_NOTICE_ID_PATTERN
 import com.yourssu.notissu.model.Notice
 import com.yourssu.notissu.utils.isNumeric
 import org.jsoup.Jsoup
@@ -316,7 +315,7 @@ object NoticeIT {
             val doc = Jsoup.connect(requestURL).get()
             for (product in doc.select("table[class='ui celled padded table'] tbody td")) {
                 val content = (product.text() ?: "").trim()
-                when(index % 3) {
+                when(index % 4) {
                     0 -> {
                         //title
                         titleList.add(content)

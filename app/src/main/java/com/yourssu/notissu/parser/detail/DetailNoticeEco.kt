@@ -1,4 +1,4 @@
-package com.yourssu.notissu.parser
+package com.yourssu.notissu.parser.detail
 
 import android.util.Log
 import com.yourssu.notissu.model.File
