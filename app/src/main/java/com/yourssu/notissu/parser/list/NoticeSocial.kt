@@ -1,4 +1,4 @@
-package com.yourssu.notissu.parser
+package com.yourssu.notissu.parser.list
 
 import com.yourssu.notissu.data.NoticeURL
 import com.yourssu.notissu.model.Notice
@@ -100,7 +100,7 @@ object NoticeSocial {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("div[class='table_wrap'] td")) {
+                for (product in doc.select("div[class^='table_wrap'] td")) {
                     //print("***")
                     val content = product.text().trim()
                     when (index % 5) {
