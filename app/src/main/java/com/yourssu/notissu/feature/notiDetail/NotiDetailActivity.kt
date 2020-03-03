@@ -2,17 +2,14 @@ package com.yourssu.notissu.feature.notiDetail
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -29,7 +26,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
+
 
 class NotiDetailActivity : AppCompatActivity(), NotiDetailContract.View {
     lateinit var notiDetail: NoticeDetail
@@ -64,12 +61,10 @@ class NotiDetailActivity : AppCompatActivity(), NotiDetailContract.View {
             finish()
         }
         notiDetailTobBar.setWebButtonClicked {
-            AlertDialogUtil.createDialogWithCancelButton("브라우저로 이동", resources.getString(R.string.noti_browser), this, "취소", "확인",
-                DialogInterface.OnClickListener { dialog, _ ->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    startActivity(intent)
-                    dialog.cancel()
-                })
+            val clipboardManager: ClipboardManager = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("url", url)
+            clipboardManager.setPrimaryClip(clipData)
+            Toast.makeText(this, "클립보드로 복사되었습니다", Toast.LENGTH_LONG).show()
         }
 
         CoroutineScope(Dispatchers.Main).launch {
