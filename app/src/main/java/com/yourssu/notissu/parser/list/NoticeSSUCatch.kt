@@ -34,13 +34,14 @@ object NoticeSSUCatch {
                 authorList.add(product.select("div[class=notice_col4]")[0].text())
                 urlList.add(product.select("a").attr("href"))
             }
+
+            for (num in urlList) {
+                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                noticeList.add(noticeItem)
+                index += 1
+            }
         } catch (error: Exception) {
             Log.e("error", "$error")
-        }
-        for (num in urlList) {
-            val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
-            noticeList.add(noticeItem)
-            index += 1
         }
 
         completion(noticeList)

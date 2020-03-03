@@ -39,9 +39,7 @@ object DetailNoticeEngineer {
         try {
             val doc = Jsoup.connect(url).get()
             htmlString =
-                doc.select("div[class=frame-box]").html().replace("src=\"","src=\"https://me.ssu.ac.kr")
-            for (product in doc.select("tbody")[0].select("a"))
-                fileList.add(File(product.text(), product.attr("href")))
+                doc.select("div[class='td_box']").html().replace("src=\"","src=\"https://me.ssu.ac.kr")
         } catch (error: Exception) {
             Log.e("error", "$error")
         }

@@ -59,6 +59,8 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
     private lateinit var presenter: SelectNotiListPresenter
     private var notiList: ArrayList<Notice> = ArrayList()
     private var result: ArrayList<Notice> = ArrayList()
+    private var resultTrigger: Notice? = null
+    private var isLast: Boolean = false
     private lateinit var mAdapter: NoticeAdapter
     private var nextPage = 1
 
@@ -93,13 +95,15 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
             nextPage = 1
             result.clear()
             notiList.clear()
+            isLast = false
+            resultTrigger = null
             getNotice()
         }
 
         view.notiListRecycler.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy >= 0 && notiList.size > 0) {
+                if (dy >= 0 && notiList.size > 0 && !isLast) {
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     if (layoutManager.findLastCompletelyVisibleItemPosition() == notiList.size - 1) {
                         getNotice()
@@ -135,9 +139,11 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
     }
 
     private fun update() {
-        notiList.addAll(result)
-        mAdapter.submitList(notiList)
-        mAdapter.notifyDataSetChanged()
+        if (!isLast) {
+            notiList.addAll(result)
+            mAdapter.submitList(notiList)
+            mAdapter.notifyDataSetChanged()
+        }
         if (result.size == 0 && notiList.size == 0 && isNetwork){
             Toast.makeText(context, resources.getString(R.string.please_retry), Toast.LENGTH_SHORT).show()
         }
@@ -154,6 +160,11 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
     }
 
     private val complete = { noticeList: ArrayList<Notice> ->
+        if (resultTrigger != null && noticeList.size > 0) {
+            if (resultTrigger?.url == noticeList[0].url) isLast = true
+            else resultTrigger = noticeList[0]
+        }
+        else if (resultTrigger == null && noticeList.size > 0) resultTrigger = noticeList[0]
         result = noticeList
     }
 

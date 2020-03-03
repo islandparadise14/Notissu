@@ -92,6 +92,8 @@ class NotiDetailPresenter: NotiDetailContract.Presenter {
                 DetailNoticeConvergence.parseConvergence(url= url, completion = complete)}
             38 -> {
                 DetailNoticeEngineer.parseArchitecture(url = url, completion = complete)}
+            39 -> {
+                DetailNoticeHuman.parseWriting(url = url, completion = complete)}
         }
     }
 

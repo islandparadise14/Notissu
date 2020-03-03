@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/noti_string"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:paddingRight="6dp"
             android:visibility="gone"
             tools:visibility="visible"/>
@@ -31,7 +31,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="14dp"
             tools:text="U-SAINT 상의 졸업사정 결과 관련 공지 어쩌구 저쩌구 쏼라쏼라"/>
     </LinearLayout>
 
@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:textSize="10dp"
         tools:text="2019.12.17" />
 
     <View
