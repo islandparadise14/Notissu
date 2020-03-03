@@ -29,42 +29,39 @@ object NoticeConvergence {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                index = 0
+            index = 0
 
-                val product = doc.select("table[class='bbs-list']").first()
+            val product = doc.select("table[class='bbs-list']").first()
 
-                for (item in product.select("tbody tr td")) {
-                    //print("***")
-                    val content = item.text().trim()
-                    print(content)
-                    when (index % 6) {
-                        0 -> {}
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {}
-                        3 -> {
-                            // Author
-                            authorList.add(content)
-                        }
-                        4 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        5 -> {}
-                        else -> {}
+            for (item in product.select("tbody tr td")) {
+                //print("***")
+                val content = item.text().trim()
+                print(content)
+                when (index % 6) {
+                    0 -> {}
+                    1 -> {
+                        // Title
+                        titleList.add(content)
                     }
-                    index += 1
+                    2 -> {}
+                    3 -> {
+                        // Author
+                        authorList.add(content)
+                    }
+                    4 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    5 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
 
-                for (productA in doc.select("td[class='left'] a")) {
-                    print(productA.attr("href") ?: "")
-                    urlList.add(productA.attr("href") ?: "")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+            for (productA in doc.select("td[class='left'] a")) {
+                print(productA.attr("href") ?: "")
+                urlList.add(productA.attr("href") ?: "")
             }
 
             index = 0
@@ -73,7 +70,10 @@ object NoticeConvergence {
                 noticeList.add(noticeItem)
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 }

@@ -22,7 +22,7 @@ object NoticeEngineer {
 
         requestURL = if (keyword != null) {
             val keywordSearch = URLEncoder.encode(keyword, "UTF-8")
-            val searchUrl = "http://me.ssu.ac.kr/web/me/notice_a?p_p_id=EXT_BBS&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_EXT_BBS_struts_action=%2Fext%2Fbbs%2Fview&_EXT_BBS_sCategory=&_EXT_BBS_sTitle=$keywordSearch&_EXT_BBS_sWriter=&_EXT_BBS_sTag=&_EXT_BBS_sContent=&_EXT_BBS_sCategory2=&_EXT_BBS_sKeyType=title&_EXT_BBS_sKeyword=$keywordSearch&_EXT_BBS_curPage=$page"
+            val searchUrl = "https://me.ssu.ac.kr/%EA%B2%8C%EC%8B%9C%ED%8C%90-%EC%9E%90%EB%A3%8C%EC%8B%A4/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/$page/?select=title&keyword=$keywordSearch"
             searchUrl
         } else {
             noticeUrl
@@ -30,42 +30,39 @@ object NoticeEngineer {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-            val table = doc.select("table[class^='bbs-list']")
-                for (product in table.select("td")) {
-                    val content = product.text().trim()
-                    //                            print(content)
-                    when (index % 5) {
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {
-                            // Author
-                            authorList.add(content)
-                        }
-                        3 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        else -> {}
+            for (product in doc.select("tbody tr td")) {
+                val content = product.text().trim()
+                //                            print(content)
+                when (index % 5) {
+                    1 -> {
+                        // Title
+                        titleList.add(content)
                     }
-                    index += 1
+                    2 -> {}
+                    3 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    else -> {}
                 }
+                index += 1
+            }
 
-                for (product in doc.select("table[class^='bbs-list'] td a")) {
-                    urlList.add(product.attr("href") ?: "")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+            for (product in doc.select("tbody tr td a")) {
+                urlList.add(product.attr("href") ?: "")
             }
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = Notice("", titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
-            completion(noticeList)
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
+
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -94,46 +91,54 @@ object NoticeEngineer {
         try {
             val doc = Jsoup.connect(requestURL).get()
 
-                for (product in doc.select("div[class^='board-list'] tr")) {
-                    val number = product.select("td[class^='no']").first()?.text()?.trim() ?: ""
-                    val title = product.select("td[class^='subject'] a").first()?.text()?.trim() ?: ""
-                    val author = product.select("td[class^='name']").first()?.text()?.trim() ?: ""
-                    val date = product.select("td[class^='date']").first()?.text()?.trim() ?: ""
+            for (product in doc.select("div[class^='board-list'] tr")) {
+                val number = product.select("td[class^='no']").first()?.text()?.trim() ?: ""
+                val title = product.select("td[class^='subject'] a").first()?.text()?.trim() ?: ""
+                val author = product.select("td[class^='name']").first()?.text()?.trim() ?: ""
+                val date = product.select("td[class^='date']").first()?.text()?.trim() ?: ""
 
-                    if (index > 0) {
-                        if (number.isNumeric()) {
-                            // normal
-                            isNoticeList.add(false)
-                        } else {
-                            // notice
-                            isNoticeList.add(true)
-                        }
-                        titleList.add(title)
-                        authorList.add(author)
-                        dateStringList.add(date)
-
+                if (index > 0) {
+                    if (number.isNumeric()) {
+                        // normal
+                        isNoticeList.add(false)
+                    } else {
+                        // notice
+                        isNoticeList.add(true)
                     }
+                    titleList.add(title)
+                    authorList.add(author)
+                    dateStringList.add(date)
 
-                    index += 1
                 }
 
-                for (product in doc.select("div[class^='board-list'] td a")) {
-                    val href = product.attr("href")
-                    print("http://chemeng.ssu.ac.kr$href")
-                    urlList.add("http://chemeng.ssu.ac.kr$href")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+                index += 1
+            }
+
+            for (product in doc.select("div[class^='board-list'] td a")) {
+                val href = product.attr("href")
+                print("http://chemeng.ssu.ac.kr$href")
+                urlList.add("http://chemeng.ssu.ac.kr$href")
             }
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-                noticeList.add(noticeItem)
+                if (!(page > 1 && isNoticeList[index])) {
+                    val noticeItem = Notice(
+                        authorList[index],
+                        titleList[index],
+                        urlList[index],
+                        dateStringList[index],
+                        isNoticeList[index]
+                    )
+                    noticeList.add(noticeItem)
+                }
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -161,48 +166,56 @@ object NoticeEngineer {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("div[class^='num']")) {
-                    isNoticeList.add(!(product.text().isNumeric()))
-                }
+            for (product in doc.select("div[class^='num']")) {
+                isNoticeList.add(!(product.text().isNumeric()))
+            }
 
-                for (product in doc.select("div[class^='subject']")) {
-                    //print("***")
-                    val content = product.text().trim()
-                    //                            print(content)
-                    val detailUrl = product.select("a").first()?.attr("href") ?: ""
-                    titleList.add(content)
-                    urlList.add("http://ee.ssu.ac.kr$detailUrl")
-                }
+            for (product in doc.select("div[class^='subject']")) {
+                //print("***")
+                val content = product.text().trim()
+                //                            print(content)
+                val detailUrl = product.select("a").first()?.attr("href") ?: ""
+                titleList.add(content)
+                urlList.add("http://ee.ssu.ac.kr$detailUrl")
+            }
 
-                index = 0
-                for (product in doc.select("div[class^='info'] span")) {
-                    val content = product.text().trim()
+            index = 0
+            for (product in doc.select("div[class^='info'] span")) {
+                val content = product.text().trim()
 
-                    when (index % 3) {
-                        0 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        1 -> {
-                            // Author
-                            authorList.add(content)
-                        }
-                        else -> {}
+                when (index % 3) {
+                    0 -> {
+                        // Date
+                        dateStringList.add(content)
                     }
-                    index += 1
+                    1 -> {
+                        // Author
+                        authorList.add(content)
+                    }
+                    else -> {}
                 }
-            } catch (error: Exception) {
-                print("Error : $error")
+                index += 1
             }
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-                noticeList.add(noticeItem)
+                if (!(page > 1 && isNoticeList[index])) {
+                    val noticeItem = Notice(
+                        authorList[index],
+                        titleList[index],
+                        urlList[index],
+                        dateStringList[index],
+                        isNoticeList[index]
+                    )
+                    noticeList.add(noticeItem)
+                }
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -227,48 +240,56 @@ object NoticeEngineer {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("table[class^='bbs-list'] td")) {
-                    //print("***")
-                    val content = product.text().trim()
-                    when (index % 5) {
-                        0 -> {
-                            if (product.html().contains("img")) {
-                                // isNotice
-                                isNoticeList.add(true)
-                            } else {
-                                isNoticeList.add(false)
-                            }
+            for (product in doc.select("table[class^='bbs-list'] td")) {
+                //print("***")
+                val content = product.text().trim()
+                when (index % 5) {
+                    0 -> {
+                        if (product.html().contains("img")) {
+                            // isNotice
+                            isNoticeList.add(true)
+                        } else {
+                            isNoticeList.add(false)
                         }
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {}
-                        3 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        4 -> {}
-                        else -> {}
                     }
-                    index += 1
+                    1 -> {
+                        // Title
+                        titleList.add(content)
+                    }
+                    2 -> {}
+                    3 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    4 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                for (product in doc.select("table[class^='bbs-list'] td a")) {
-                    urlList.add(product.attr("href") ?: "")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+            for (product in doc.select("table[class^='bbs-list'] td a")) {
+                urlList.add(product.attr("href") ?: "")
             }
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice("", titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-                noticeList.add(noticeItem)
+                if (!(page > 1 && isNoticeList[index])) {
+                    val noticeItem = Notice(
+                        "",
+                        titleList[index],
+                        urlList[index],
+                        dateStringList[index],
+                        isNoticeList[index]
+                    )
+                    noticeList.add(noticeItem)
+                }
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -292,34 +313,31 @@ object NoticeEngineer {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in (doc.select("div[class='mt40'] td[align=left] a"))) {
-                    val content = product.text().trim()
-                    titleList.add(content)
-                    urlList.add("http://materials.ssu.ac.kr${product.attr("href") ?: ""}")
-                }
-                // Remove Frist Item
-                index = 0
-                for (product in (doc.select("div[class='mt40'] tr[height='35']"))) {
-                    var realContent = product.html() ?: ""
-                    realContent = realContent.replace("\t", "")
-                    realContent = realContent.replace(" ", "")
-                    if (index > 0) {
-                        var postItem = (realContent.split("\n"))
-                        val postItemList = ArrayList<String>()
-                        for (string in postItem){
-                            postItemList.add(string)
-                        }
-                        if (postItem.count() > 9) {
-                            // 번호를 지운다
-                            postItemList.removeAt(0)
-                        }
-                        authorList.add(postItemList[3])
-                        dateStringList.add(postItemList[5])
+            for (product in (doc.select("div[class='mt40'] td[align=left] a"))) {
+                val content = product.text().trim()
+                titleList.add(content)
+                urlList.add("http://materials.ssu.ac.kr${product.attr("href") ?: ""}")
+            }
+            // Remove Frist Item
+            index = 0
+            for (product in (doc.select("div[class='mt40'] tr[height='35']"))) {
+                var realContent = product.html() ?: ""
+                realContent = realContent.replace("\t", "")
+                realContent = realContent.replace(" ", "")
+                if (index > 0) {
+                    var postItem = (realContent.split("\n"))
+                    val postItemList = ArrayList<String>()
+                    for (string in postItem){
+                        postItemList.add(string)
                     }
-                    index += 1
+                    if (postItem.count() > 9) {
+                        // 번호를 지운다
+                        postItemList.removeAt(0)
+                    }
+                    authorList.add(postItemList[3])
+                    dateStringList.add(postItemList[5])
                 }
-            } catch (error: Exception) {
-                print("Error : $error")
+                index += 1
             }
 
             index = 0
@@ -328,8 +346,11 @@ object NoticeEngineer {
                 noticeList.add(noticeItem)
                 index += 1
             }
-            // 17
-            completion(noticeList)
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
+
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -363,17 +384,17 @@ object NoticeEngineer {
                         }
                     }
                 }
+                var index = 0
+
+                for (num in urlList){
+                    val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                    noticeList.add(noticeItem)
+                    index += 1
+                }
 
             } catch (error: Exception) {
                 print("Error : $error")
             }
-        }
-        var index = 0
-
-        for (num in urlList){
-            val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
-            noticeList.add(noticeItem)
-            index += 1
         }
         completion(noticeList)
     }

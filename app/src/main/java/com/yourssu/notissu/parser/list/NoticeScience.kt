@@ -27,33 +27,30 @@ object NoticeScience {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("table[class='bbs-list'] td")) {
-                    //print("***")
-                    val content = product.text().trim()
-                    print(content)
-                    when (index % 5) {
-                        0 -> {}
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {}
-                        3 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        4 -> {}
-                        else -> {}
+            for (product in doc.select("table[class='bbs-list'] td")) {
+                //print("***")
+                val content = product.text().trim()
+                print(content)
+                when (index % 5) {
+                    0 -> {}
+                    1 -> {
+                        // Title
+                        titleList.add(content)
                     }
-                    index += 1
+                    2 -> {}
+                    3 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    4 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                for (product in doc.select("table[class='bbs-list'] a")) {
-                    print(product.attr("href") ?: "")
-                    urlList.add(product.attr("href") ?: "")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+            for (product in doc.select("table[class='bbs-list'] a")) {
+                print(product.attr("href") ?: "")
+                urlList.add(product.attr("href") ?: "")
             }
 
             index = 0
@@ -62,8 +59,11 @@ object NoticeScience {
                 noticeList.add(noticeItem)
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -87,37 +87,34 @@ object NoticeScience {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("table[class='bbs-list'] td")) {
-                    //print("***")
-                    val content = product.text().trim()
-                    print(content)
-                    when (index % 6) {
-                        0 -> {}
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {}
-                        3 -> {
-                            // Author
-                            authorList.add(content)
-                        }
-                        4 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        5 -> {}
-                        else -> {}
+            for (product in doc.select("table[class='bbs-list'] td")) {
+                //print("***")
+                val content = product.text().trim()
+                print(content)
+                when (index % 6) {
+                    0 -> {}
+                    1 -> {
+                        // Title
+                        titleList.add(content)
                     }
-                    index += 1
+                    2 -> {}
+                    3 -> {
+                        // Author
+                        authorList.add(content)
+                    }
+                    4 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    5 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                for (product in doc.select("table[class='bbs-list'] a")) {
-                    print(product.attr("href") ?: "")
-                    urlList.add(product.attr("href") ?: "")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+            for (product in doc.select("table[class='bbs-list'] a")) {
+                print(product.attr("href") ?: "")
+                urlList.add(product.attr("href") ?: "")
             }
 
             index = 0
@@ -126,8 +123,11 @@ object NoticeScience {
                 noticeList.add(noticeItem)
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -152,54 +152,62 @@ object NoticeScience {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("table[class='bbs-list'] td")) {
-                    //print("***")
-                    val content = product.text().trim()
-                    print(content)
-                    when (index % 6) {
-                        0 -> {
-                            if (product.html()?.contains("img") == true) {
-                                // isNotice
-                                isNoticeList.add(true)
-                            } else {
-                                isNoticeList.add(false)
-                            }
+            for (product in doc.select("table[class='bbs-list'] td")) {
+                //print("***")
+                val content = product.text().trim()
+                print(content)
+                when (index % 6) {
+                    0 -> {
+                        if (product.html()?.contains("img") == true) {
+                            // isNotice
+                            isNoticeList.add(true)
+                        } else {
+                            isNoticeList.add(false)
                         }
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {}
-                        3 -> {
-                            // Author
-                            authorList.add(content)
-                        }
-                        4 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        5 -> {}
-                        else -> {}
                     }
-                    index += 1
+                    1 -> {
+                        // Title
+                        titleList.add(content)
+                    }
+                    2 -> {}
+                    3 -> {
+                        // Author
+                        authorList.add(content)
+                    }
+                    4 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    5 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                for (product in doc.select("table[class='bbs-list'] a")) {
-                    print(product.attr("href") ?: "")
-                    urlList.add(product.attr("href") ?: "")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+            for (product in doc.select("table[class='bbs-list'] a")) {
+                print(product.attr("href") ?: "")
+                urlList.add(product.attr("href") ?: "")
             }
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice("", titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-                noticeList.add(noticeItem)
+                if (!(page > 1 && isNoticeList[index])) {
+                    val noticeItem = Notice(
+                        "",
+                        titleList[index],
+                        urlList[index],
+                        dateStringList[index],
+                        isNoticeList[index]
+                    )
+                    noticeList.add(noticeItem)
+                }
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -223,35 +231,32 @@ object NoticeScience {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("div[class='tbl_head01 tbl_wrap'] td")) {
-                    val content = product.text().trim()
-                    print(content)
-                    when (index % 5) {
-                        0 -> {}
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {
-                            // Author
-                            authorList.add(content)
-                        }
-                        3 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        4 -> {}
-                        else -> {}
+            for (product in doc.select("div[class='tbl_head01 tbl_wrap'] td")) {
+                val content = product.text().trim()
+                print(content)
+                when (index % 5) {
+                    0 -> {}
+                    1 -> {
+                        // Title
+                        titleList.add(content)
                     }
-                    index += 1
+                    2 -> {
+                        // Author
+                        authorList.add(content)
+                    }
+                    3 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    4 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                for (product in doc.select("div[class='tbl_head01 tbl_wrap'] td a")) {
-                    print(product.attr("href") ?: "")
-                    urlList.add(product.attr("href") ?: "")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+            for (product in doc.select("div[class='tbl_head01 tbl_wrap'] td a")) {
+                print(product.attr("href") ?: "")
+                urlList.add(product.attr("href") ?: "")
             }
 
             index = 0
@@ -260,8 +265,11 @@ object NoticeScience {
                 noticeList.add(noticeItem)
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -285,33 +293,30 @@ object NoticeScience {
 
         try {
             val doc = Jsoup.connect(requestURL).get()
-                for (product in doc.select("table[class='bbs-list'] td")) {
-                    //print("***")
-                    val content = product.text().trim()
-                    print(content)
-                    when (index % 5) {
-                        0 -> {}
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {}
-                        3 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        4 -> {}
-                        else -> {}
+            for (product in doc.select("table[class='bbs-list'] td")) {
+                //print("***")
+                val content = product.text().trim()
+                print(content)
+                when (index % 5) {
+                    0 -> {}
+                    1 -> {
+                        // Title
+                        titleList.add(content)
                     }
-                    index += 1
+                    2 -> {}
+                    3 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    4 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                for (product in doc.select("table[class='bbs-list'] a")) {
-                    print(product.attr("href") ?: "")
-                    urlList.add(product.attr("href") ?: "")
-                }
-            } catch (error: Exception) {
-                print("Error : $error")
+            for (product in doc.select("table[class='bbs-list'] a")) {
+                print(product.attr("href") ?: "")
+                urlList.add(product.attr("href") ?: "")
             }
 
             index = 0
@@ -320,7 +325,10 @@ object NoticeScience {
                 noticeList.add(noticeItem)
                 index += 1
             }
+        } catch (error: Exception) {
+            print("Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 }

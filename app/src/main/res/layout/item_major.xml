@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:layout_marginBottom="4dp"
             tools:text="사회복지학부" />
 
@@ -30,6 +30,7 @@
             android:id="@+id/majorNameEng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12dp"
             tools:text="School of Social Welfare" />
     </LinearLayout>
 
