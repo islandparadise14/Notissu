@@ -142,4 +142,19 @@ object DetailNoticeHuman {
         }
         completion(NoticeDetail(htmlString,fileList))
     }
+
+    @JvmStatic
+    fun parseWriting(url: String, completion: (NoticeDetail) -> Unit) {
+        var htmlString = ""
+        val fileList = ArrayList<File>()
+
+        try {
+            val doc = Jsoup.connect(url).get()
+            htmlString =
+                doc.select("td[class='big']")[1].html().replace("src=\"","src=\"http://writing.ssu.ac.kr")
+        } catch (error: Exception) {
+            Log.e("error", "$error")
+        }
+        completion(NoticeDetail(htmlString,fileList))
+    }
 }

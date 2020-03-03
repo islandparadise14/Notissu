@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:maxLines="1"
             android:ellipsize="end"
             tools:text="2020년 2월 졸업예정자 교원자격 무시험 검정원 우와 어쩌구 저쩌구" />
@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:textSize="12dp"
             android:ellipsize="end"
             tools:text="2019.12.17 12:11" />
     </LinearLayout>

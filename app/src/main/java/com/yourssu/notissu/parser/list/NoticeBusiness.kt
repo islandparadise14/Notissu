@@ -80,15 +80,23 @@ object NoticeBusiness {
                 Log.d("Notice", product.attr("href").toString())
                 urlList.add("http://biz.ssu.ac.kr${product.attr("href")}")
             }
+
+            index = 0
+            for (num in urlList) {
+                if (!(page > 1 && isNoticeList[index])) {
+                    val noticeItem = Notice(
+                        authorList[index],
+                        titleList[index],
+                        urlList[index],
+                        dateStringList[index],
+                        isNoticeList[index]
+                    )
+                    noticeList.add(noticeItem)
+                }
+                index += 1
+            }
         } catch (error: Exception) {
             Log.d("Notice", "Error : $error")
-        }
-
-        index = 0
-        for (num in urlList) {
-            val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-            noticeList.add(noticeItem)
-            index += 1
         }
 
         completion(noticeList)
@@ -118,56 +126,65 @@ object NoticeBusiness {
         try {
             val doc = Jsoup.connect(requestURL).get()
             val table = doc.select("table[class='bbs-list']")
-                for (product in table.select("td")) {
-                    //Log.d("Notice", "***")
-                    val content = product.text().trim()
-                    Log.d("Notice", content)
-                    when (index % 6) {
-                        0 -> {
-                            if (product.select("img").isNotEmpty()) {
-                                // isNotice
-                                isNoticeList.add(true)
-                            } else {
-                                isNoticeList.add(false)
-                            }
+            for (product in table.select("td")) {
+                //Log.d("Notice", "***")
+                val content = product.text().trim()
+                Log.d("Notice", content)
+                when (index % 6) {
+                    0 -> {
+                        if (product.select("img").isNotEmpty()) {
+                            // isNotice
+                            isNoticeList.add(true)
+                        } else {
+                            isNoticeList.add(false)
                         }
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {}
-                        3 -> {
-                            // Author
-                            authorList.add(content)
-                        }
-                        4 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        5 -> {}
-                        else -> {}
                     }
-                    index += 1
+                    1 -> {
+                        // Title
+                        titleList.add(content)
+                    }
+                    2 -> {}
+                    3 -> {
+                        // Author
+                        authorList.add(content)
+                    }
+                    4 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    5 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                val bbsList = doc.select("table[class='bbs-list']")
-                val hrefs = bbsList.select("a")
-                hrefs.map {
-                    Log.d("Notice", it.attr("href"))
-                    urlList.add(it.attr("href"))
-                }
-            } catch (error: Exception) {
-                Log.d("Notice", "Error : $error")
+            val bbsList = doc.select("table[class='bbs-list']")
+            val hrefs = bbsList.select("a")
+            hrefs.map {
+                Log.d("Notice", it.attr("href"))
+                urlList.add(it.attr("href"))
             }
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-                noticeList.add(noticeItem)
+                if (!(page > 1 && isNoticeList[index])) {
+                    val noticeItem = Notice(
+                        authorList[index],
+                        titleList[index],
+                        urlList[index],
+                        dateStringList[index],
+                        isNoticeList[index]
+                    )
+                    noticeList.add(noticeItem)
+                }
                 index += 1
             }
 
-            completion(noticeList)
+        } catch (error: Exception) {
+            Log.d("Notice", "Error : $error")
+        }
+
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -194,56 +211,64 @@ object NoticeBusiness {
         try {
             val doc = Jsoup.connect(requestURL).get()
             val table = doc.select("table[class='bbs-list']")
-                for (product in table.select("td")) {
-                    //Log.d("Notice", "***")
-                    val content = product.text().trim()
-                    Log.d("Notice", content)
-                    when (index % 6) {
-                        0 -> {
-                            if (product.select("img").isNotEmpty()) {
-                                // isNotice
-                                isNoticeList.add(true)
-                            } else {
-                                isNoticeList.add(false)
-                            }
+            for (product in table.select("td")) {
+                //Log.d("Notice", "***")
+                val content = product.text().trim()
+                Log.d("Notice", content)
+                when (index % 6) {
+                    0 -> {
+                        if (product.select("img").isNotEmpty()) {
+                            // isNotice
+                            isNoticeList.add(true)
+                        } else {
+                            isNoticeList.add(false)
                         }
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {}
-                        3 -> {
-                            // Author
-                            authorList.add(content)
-                        }
-                        4 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        5 -> {}
-                        else -> {}
                     }
-                    index += 1
+                    1 -> {
+                        // Title
+                        titleList.add(content)
+                    }
+                    2 -> {}
+                    3 -> {
+                        // Author
+                        authorList.add(content)
+                    }
+                    4 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    5 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                val bbsList = doc.select("table[class='bbs-list']")
-                val hrefs = bbsList.select("a")
-                hrefs.map {
-                    Log.d("Notice", it.attr("href"))
-                    urlList.add(it.attr("href"))
-                }
-            } catch (error: Exception) {
-                Log.d("Notice", "Error : $error")
+            val bbsList = doc.select("table[class='bbs-list']")
+            val hrefs = bbsList.select("a")
+            hrefs.map {
+                Log.d("Notice", it.attr("href"))
+                urlList.add(it.attr("href"))
             }
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-                noticeList.add(noticeItem)
+                if (!(page > 1 && isNoticeList[index])) {
+                    val noticeItem = Notice(
+                        authorList[index],
+                        titleList[index],
+                        urlList[index],
+                        dateStringList[index],
+                        isNoticeList[index]
+                    )
+                    noticeList.add(noticeItem)
+                }
                 index += 1
             }
+        } catch (error: Exception) {
+            Log.d("Notice", "Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 
     @JvmStatic
@@ -270,55 +295,63 @@ object NoticeBusiness {
         try {
             val doc = Jsoup.connect(requestURL).get()
             val table = doc.select("table[class='bbs-list']")
-                for (product in table.select("td")) {
-                    //Log.d("Notice", "***")
-                    val content = product.text().trim()
-                    Log.d("Notice", content)
-                    when (index % 5) {
-                        0 -> {
-                            if (product.select("img").isNotEmpty()) {
-                                // isNotice
-                                isNoticeList.add(true)
-                            } else {
-                                isNoticeList.add(false)
-                            }
+            for (product in table.select("td")) {
+                //Log.d("Notice", "***")
+                val content = product.text().trim()
+                Log.d("Notice", content)
+                when (index % 5) {
+                    0 -> {
+                        if (product.select("img").isNotEmpty()) {
+                            // isNotice
+                            isNoticeList.add(true)
+                        } else {
+                            isNoticeList.add(false)
                         }
-                        1 -> {
-                            // Title
-                            titleList.add(content)
-                        }
-                        2 -> {
-                            // Author
-                            authorList.add("")
-                        }
-                        3 -> {
-                            // Date
-                            dateStringList.add(content)
-                        }
-                        4 -> {}
-                        5 -> {}
-                        else -> {}
                     }
-                    index += 1
+                    1 -> {
+                        // Title
+                        titleList.add(content)
+                    }
+                    2 -> {
+                        // Author
+                        authorList.add("")
+                    }
+                    3 -> {
+                        // Date
+                        dateStringList.add(content)
+                    }
+                    4 -> {}
+                    5 -> {}
+                    else -> {}
                 }
+                index += 1
+            }
 
-                val bbsList = doc.select("table[class='bbs-list']")
-                val hrefs = bbsList.select("a")
-                hrefs.map {
-                    Log.d("Notice", it.attr("href"))
-                    urlList.add(it.attr("href"))
-                }
-            } catch (error: Exception) {
-                Log.d("Notice", "Error : $error")
+            val bbsList = doc.select("table[class='bbs-list']")
+            val hrefs = bbsList.select("a")
+            hrefs.map {
+                Log.d("Notice", it.attr("href"))
+                urlList.add(it.attr("href"))
             }
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], isNoticeList[index])
-                noticeList.add(noticeItem)
+                if (!(page > 1 && isNoticeList[index])) {
+                    val noticeItem = Notice(
+                        authorList[index],
+                        titleList[index],
+                        urlList[index],
+                        dateStringList[index],
+                        isNoticeList[index]
+                    )
+                    noticeList.add(noticeItem)
+                }
                 index += 1
             }
+        } catch (error: Exception) {
+            Log.d("Notice", "Error : $error")
+        }
 
-            completion(noticeList)
+        completion(noticeList)
     }
 }

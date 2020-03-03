@@ -92,6 +92,8 @@ class SelectNotiListPresenter : SelectNotiListContract.Presenter {
                 NoticeConvergence.parseListConvergence(page= page, keyword = keyword, completion = complete)}
             38 -> {
                 NoticeEngineer.parseListArchitecture(page=page, keyword = keyword, completion = complete)}
+            39 -> {
+                NoticeHuman.parseListWriting(page = page, keyword = keyword, completion = complete)}
         }
     }
 
