@@ -59,7 +59,7 @@ class MajorData {
                 //architecture add
                 Major(38, "건축학부", "School of Architecture"),
                 //writing add
-                Major(39, "문예창작학과", "Creative Writing")
+                Major(39, "문예창작전공", "Creative Writing")
             )
         )
 
