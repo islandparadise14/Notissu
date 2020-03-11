@@ -1,16 +1,16 @@
 package com.yourssu.notissu.parser.list
 
 import com.yourssu.notissu.data.NoticeURL
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import com.yourssu.notissu.utils.isNumeric
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 
 object NoticeSocial {
     @JvmStatic
-    fun parseListWelfare(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListWelfare(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.socialWelfareURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -68,7 +68,7 @@ object NoticeSocial {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -87,9 +87,9 @@ object NoticeSocial {
     }
 
     @JvmStatic
-    fun parseListAdministration(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListAdministration(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.socialAdministrationURL}$page/"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         var authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -137,7 +137,7 @@ object NoticeSocial {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         "",
                         titleList[index],
                         urlList[index],
@@ -156,10 +156,10 @@ object NoticeSocial {
     }
 
     @JvmStatic
-    fun parseListSociology(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListSociology(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val offset = (page - 1) * 10
         val noticeUrl = "${NoticeURL.socialSociologyURL}$offset"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -210,7 +210,7 @@ object NoticeSocial {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
@@ -222,9 +222,9 @@ object NoticeSocial {
     }
 
     @JvmStatic
-    fun parseListJournalism(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListJournalism(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.socialJournalismURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -306,7 +306,7 @@ object NoticeSocial {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -325,9 +325,9 @@ object NoticeSocial {
     }
 
     @JvmStatic
-    fun parseListLifeLong(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListLifeLong(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.socialLifeLongURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -404,7 +404,7 @@ object NoticeSocial {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
@@ -416,9 +416,9 @@ object NoticeSocial {
     }
 
     @JvmStatic
-    fun parseListPolitical(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListPolitical(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.socialPoliticsURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -506,7 +506,7 @@ object NoticeSocial {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }

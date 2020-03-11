@@ -16,7 +16,7 @@ interface MajorListContract {
                    biz: ArrayList<Major>,
                    eco: ArrayList<Major>,
                    social: ArrayList<Major>,
-                   convergence: ArrayList<Major>v
+                   convergence: ArrayList<Major>
         )
     }
 

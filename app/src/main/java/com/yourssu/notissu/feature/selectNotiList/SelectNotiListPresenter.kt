@@ -3,14 +3,14 @@ package com.yourssu.notissu.feature.selectNotiList
 import android.content.Context
 import android.os.Build
 import android.widget.Toast
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import com.yourssu.notissu.parser.list.*
 import com.yourssu.notissu.utils.NetworkCheck
 
 class SelectNotiListPresenter : SelectNotiListContract.Presenter {
     override lateinit var view: SelectNotiListContract.View
 
-    override fun loadItem(majorNumber: Int, page: Int, keyword: String?, complete: (ArrayList<Notice>) -> Unit) {
+    override fun loadItem(majorNumber: Int, page: Int, keyword: String?, complete: (ArrayList<NoticeItem>) -> Unit) {
         when (majorNumber) {
             -1 -> {
                 NoticeSSUCatch.parseListSSUCatch(page= page, keyword = keyword, completion = complete)}
