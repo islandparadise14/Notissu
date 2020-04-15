@@ -6,8 +6,15 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Notice(
-    @PrimaryKey val nid: Int,
-    @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "date") val date: String,
-    @ColumnInfo(name = "url") val url: String
-)
+    var titleName: String,
+    var dataName: String,
+    var urlName: String,
+    var majorNumberInfo: Int
+) {
+    @PrimaryKey(autoGenerate = true)
+    var nid: Int = 0
+    @ColumnInfo(name = "title") var title: String = titleName
+    @ColumnInfo(name = "date") var date: String = dataName
+    @ColumnInfo(name = "url") var url: String = urlName
+    @ColumnInfo(name = "majorNumber") var majorNumber: Int = majorNumberInfo
+}

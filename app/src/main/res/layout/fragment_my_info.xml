@@ -70,10 +70,27 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/openSourceText"
+            android:id="@+id/bookmarkText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="@string/bookmark_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/openSourceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:textSize="16dp"
             android:textColor="@color/black"

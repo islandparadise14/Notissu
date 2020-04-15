@@ -53,7 +53,7 @@ class SearchFragment : Fragment, SearchContract.View {
         view.to_search_result.setOnClickListener {
             val keyword = search_keyword.text.toString()
             if (keyword.isEmpty()){
-                Toast.makeText(context!!, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(activity, MajorNotiActivity::class.java)
                 intent.putExtra(MAJOR_INTENT_KEY, majorNumber)
@@ -66,7 +66,7 @@ class SearchFragment : Fragment, SearchContract.View {
     }
 
     override fun update(mView: View, item: List<String>) {
-        val majorAdapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, item)
+        val majorAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, item)
 
         mView.spinnerMajor.adapter = majorAdapter
 
