@@ -55,10 +55,6 @@ class NotiDetailActivity : AppCompatActivity(), NotiDetailContract.View {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_noti_detail)
         mBinding.activity = this
         mBinding.isBookmarked = false
-        url?.let { database
-            .getBookmarkByUrl(it).observe(this, androidx.lifecycle.Observer { response ->
-            mBinding.isBookmarked = response.isNotEmpty()
-        }) }
     }
 
     fun setPresenter() {
@@ -75,6 +71,10 @@ class NotiDetailActivity : AppCompatActivity(), NotiDetailContract.View {
     }
 
     fun initView() {
+        url?.let { database
+            .getBookmarkByUrl(it).observe(this, androidx.lifecycle.Observer { response ->
+                mBinding.isBookmarked = response.isNotEmpty()
+            }) }
         mBinding.notiDetailTobBar.setTitle("상세보기")
         mBinding.detailTitle.text = title
         mBinding.detailDate.text = date
@@ -86,7 +86,7 @@ class NotiDetailActivity : AppCompatActivity(), NotiDetailContract.View {
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(CoroutineScope(Dispatchers.Default).coroutineContext) {
                         database
-                            .insertAllBookmarks(Notice(title, date, it, majorNumber))
+                            .insertAllBookmarks(Notice(title = title, date = date, url = it, majorNumber = majorNumber))
                     }
                 }
             }
@@ -94,7 +94,7 @@ class NotiDetailActivity : AppCompatActivity(), NotiDetailContract.View {
         mBinding.notiDetailTobBar.bookmarkOnButtonClicked {
             url?.let { CoroutineScope(Dispatchers.Main).launch {
                 withContext(CoroutineScope(Dispatchers.Default).coroutineContext) {
-                    database.deleteBookmark(Notice(title, date, it, majorNumber))
+                    database.deleteBookmark(Notice(title = title, date = date, url = it, majorNumber = majorNumber))
                 }
             } }
         }
