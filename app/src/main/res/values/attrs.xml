@@ -3,6 +3,8 @@
     <declare-styleable name="NotissuTopbar">
         <attr name="setBackButton" format="boolean"/>
         <attr name="setPlusButton" format="boolean"/>
-        <attr name="setWebButton" format="boolean"/>
+        <attr name="setLinkButton" format="boolean"/>
+        <attr name="setBookmarkButton" format="boolean"/>
+        <attr name="isChecked" format="boolean"/>
     </declare-styleable>
 </resources>

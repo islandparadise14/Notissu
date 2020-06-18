@@ -2,15 +2,15 @@ package com.yourssu.notissu.parser.list
 
 import android.util.Log
 import com.yourssu.notissu.data.NoticeURL
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 
 object NoticeSSUCatch {
     @JvmStatic
-    fun parseListSSUCatch(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListSSUCatch(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.ssucatchURL}page/$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -36,7 +36,7 @@ object NoticeSSUCatch {
             }
 
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }

@@ -1,16 +1,16 @@
 package com.yourssu.notissu.parser.list
 
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import org.jsoup.Jsoup
 import java.lang.Exception
 import java.net.URLEncoder
 
 object NoticeLaw {
     @JvmStatic
-    fun parseListLaw(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListLaw(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "http://law.ssu.ac.kr/web/law/board1?p_p_id=EXT_BBS&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_EXT_BBS_struts_action=%2Fext%2Fbbs%2Fview&_EXT_BBS_sCategory=&_EXT_BBS_sTitle=&_EXT_BBS_sWriter=&_EXT_BBS_sTag=&_EXT_BBS_sContent=&_EXT_BBS_sCategory2=&_EXT_BBS_sKeyType=&_EXT_BBS_sKeyword=&_EXT_BBS_curPage=$page"
 
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
         val isNoticeList = ArrayList<Boolean>()
@@ -67,7 +67,7 @@ object NoticeLaw {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         "",
                         titleList[index],
                         urlList[index],
@@ -86,10 +86,10 @@ object NoticeLaw {
     }
 
     @JvmStatic
-    fun parseListIntlLaw(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListIntlLaw(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "http://lawyer.ssu.ac.kr/web/lawyer/27?p_p_id=EXT_BBS&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_EXT_BBS_struts_action=%2Fext%2Fbbs%2Fview&_EXT_BBS_sCategory=&_EXT_BBS_sTitle=&_EXT_BBS_sWriter=&_EXT_BBS_sTag=&_EXT_BBS_sContent=&_EXT_BBS_sCategory2=&_EXT_BBS_sKeyType=&_EXT_BBS_sKeyword=&_EXT_BBS_curPage=$page"
 
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -148,7 +148,7 @@ object NoticeLaw {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],

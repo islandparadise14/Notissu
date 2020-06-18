@@ -9,32 +9,39 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_CLIPS" />
     <uses-permission android:name="android.permission.READ_CLIPS" />
     <uses-permission android:name="android.permission.WRITE_CLIPS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name="com.yourssu.notissu.feature.openSource.OpenSourceActivity"
+        <activity android:name=".feature.bookmark.BookmarkActivity"></activity>
+        <activity
+            android:name=".feature.openSource.OpenSourceActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.yourssu.notissu.feature.notiDetail.NotiDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.yourssu.notissu.feature.majorNotiList.MajorNotiActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.yourssu.notissu.feature.main.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.yourssu.notissu.feature.splash.SplashActivity"
+        <activity
+            android:name=".feature.notiDetail.NotiDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.majorNotiList.MajorNotiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.splash.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,8 +49,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.yourssu.notissu.feature.selectMajor.SelectMajorActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".feature.selectMajor.SelectMajorActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

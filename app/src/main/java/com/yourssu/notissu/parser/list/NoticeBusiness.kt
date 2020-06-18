@@ -2,7 +2,7 @@ package com.yourssu.notissu.parser.list
 
 import android.util.Log
 import com.yourssu.notissu.data.NoticeURL
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import org.jsoup.Jsoup
 import java.lang.Exception
 import java.net.URLEncoder
@@ -10,9 +10,9 @@ import java.net.URLEncoder
 object NoticeBusiness {
 
     @JvmStatic
-    fun parseListBiz(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListBiz(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.businessBizURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -84,7 +84,7 @@ object NoticeBusiness {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -103,9 +103,9 @@ object NoticeBusiness {
     }
 
     @JvmStatic
-    fun parseListVenture(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListVenture(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.businessVentureURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -168,7 +168,7 @@ object NoticeBusiness {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -188,9 +188,9 @@ object NoticeBusiness {
     }
 
     @JvmStatic
-    fun parseListAccount(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListAccount(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.businessAccountURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -253,7 +253,7 @@ object NoticeBusiness {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -272,9 +272,9 @@ object NoticeBusiness {
     }
 
     @JvmStatic
-    fun parseListFinance(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListFinance(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.businessFinanceURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -337,7 +337,7 @@ object NoticeBusiness {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],

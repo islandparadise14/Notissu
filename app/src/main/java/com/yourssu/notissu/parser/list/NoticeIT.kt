@@ -1,6 +1,6 @@
 package com.yourssu.notissu.parser.list
 
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import com.yourssu.notissu.utils.isNumeric
 import org.jsoup.Jsoup
 import java.lang.Exception
@@ -8,8 +8,8 @@ import java.net.URLEncoder
 
 object NoticeIT {
     @JvmStatic
-    fun parseListComputer(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
-        val noticeList = ArrayList<Notice>()
+    fun parseListComputer(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlStringList = ArrayList<String>()
@@ -83,7 +83,7 @@ object NoticeIT {
             index = 0
 
             for (num in authorList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlStringList[index], dateStringList[index], isNoticeList[index])
+                val noticeItem = NoticeItem(authorList[index], titleList[index], urlStringList[index], dateStringList[index], isNoticeList[index])
 
                 noticeList.add(noticeItem)
                 index += 1
@@ -96,8 +96,8 @@ object NoticeIT {
     }
 
     @JvmStatic
-    fun parseListMedia(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
-        val noticeList = ArrayList<Notice>()
+    fun parseListMedia(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList    = ArrayList<String>()
@@ -152,7 +152,7 @@ object NoticeIT {
 
             for (num in authorList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -172,9 +172,9 @@ object NoticeIT {
     }
 
     @JvmStatic
-    fun parseListSoftware(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListSoftware(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "https://sw.ssu.ac.kr/bbs/board.php?bo_table=sub6_1&page=$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -229,7 +229,7 @@ object NoticeIT {
 
             for (num in authorList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -251,9 +251,9 @@ object NoticeIT {
     }
 
     @JvmStatic
-    fun parseListElectric(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListElectric(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "http://infocom.ssu.ac.kr/rb/?c=2/38&p=$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -299,7 +299,7 @@ object NoticeIT {
             index = 0
             for (num in authorList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -318,9 +318,9 @@ object NoticeIT {
     }
 
     @JvmStatic
-    fun parseListSmartSystem(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListSmartSystem(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "http://smartsw.ssu.ac.kr/board/notice/$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -367,7 +367,7 @@ object NoticeIT {
 
             index = 0
             for (num in authorList) {
-                val noticeItem = Notice(author= authorList[index], title= titleList[index], url= urlList[index], date= dateStringList[index], isNotice= false)
+                val noticeItem = NoticeItem(author= authorList[index], title= titleList[index], url= urlList[index], date= dateStringList[index], isNotice= false)
                 noticeList.add(noticeItem)
                 index += 1
             }

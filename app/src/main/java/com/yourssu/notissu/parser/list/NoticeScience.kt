@@ -1,15 +1,15 @@
 package com.yourssu.notissu.parser.list
 
 import com.yourssu.notissu.data.NoticeURL
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 
 object NoticeScience {
     @JvmStatic
-    fun parseListMath(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListMath(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.naturalScienceMathURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         var authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -55,7 +55,7 @@ object NoticeScience {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice("", titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem("", titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
@@ -67,9 +67,9 @@ object NoticeScience {
     }
 
     @JvmStatic
-    fun parseListChemistry(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListChemistry(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.naturalScienceChemistryURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -119,7 +119,7 @@ object NoticeScience {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice("", titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem("", titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
@@ -131,9 +131,9 @@ object NoticeScience {
     }
 
     @JvmStatic
-    fun parseListPhysics(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListPhysics(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.naturalSciencePhysicsURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -192,7 +192,7 @@ object NoticeScience {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         "",
                         titleList[index],
                         urlList[index],
@@ -211,9 +211,9 @@ object NoticeScience {
     }
 
     @JvmStatic
-    fun parseListActuarial(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListActuarial(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.naturalScienceActuarialURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -261,7 +261,7 @@ object NoticeScience {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice("", titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem("", titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
@@ -273,9 +273,9 @@ object NoticeScience {
     }
 
     @JvmStatic
-    fun parseListBiomedical(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListBiomedical(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.naturalScienceBiomedicalURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         var authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -321,7 +321,7 @@ object NoticeScience {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice("", titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem("", titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }

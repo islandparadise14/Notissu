@@ -51,4 +51,5 @@
     <string name="back_click">한번 더 뒤로가기를 누르면 종료됩니다</string>
 
     <string name="file_permission_fail">파일 다운로드 권한을 얻는데 실패하였습니다</string>
+    <string name="bookmark_text">북마크</string>
 </resources>

@@ -74,7 +74,7 @@ class MajorListFragment : Fragment(), MajorListContract.View {
         view.convergenceMajors.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
     }
 
-    val clicked = { position: Int ->
+    private val clicked = { position: Int ->
         (activity as MainActivity).intentActivity(position)
     }
 }

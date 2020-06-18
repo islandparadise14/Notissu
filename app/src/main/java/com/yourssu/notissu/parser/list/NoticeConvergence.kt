@@ -1,15 +1,15 @@
 package com.yourssu.notissu.parser.list
 
 import com.yourssu.notissu.data.NoticeURL
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 
 object NoticeConvergence {
     @JvmStatic
-    fun parseListConvergence(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListConvergence(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.mixURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -66,7 +66,7 @@ object NoticeConvergence {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
