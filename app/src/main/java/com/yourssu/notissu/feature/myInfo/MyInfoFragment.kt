@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.yourssu.notissu.R
 import com.yourssu.notissu.data.MAJOR_KEY
 import com.yourssu.notissu.data.MajorData
+import com.yourssu.notissu.feature.bookmark.BookmarkActivity
 import com.yourssu.notissu.feature.main.MainActivity
 import com.yourssu.notissu.feature.openSource.OpenSourceActivity
 import com.yourssu.notissu.utils.AlertDialogUtil
@@ -36,7 +37,7 @@ class MyInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_my_info, container, false)
+        val view = inflater.inflate(R.layout.fragment_my_info, container, false)
 
         initView(view)
         setListener(view)
@@ -48,56 +49,91 @@ class MyInfoFragment : Fragment() {
         view.majorInfo.text = MajorData.getInstance().getMajorByIndex(
             SharedPreferenceUtil.getInt(
                 MAJOR_KEY
-            )).name
+            )
+        ).name
     }
 
     private fun setListener(view: View) {
+        view.bookmarkText.setOnClickListener {
+            startActivity(Intent(activity, BookmarkActivity::class.java))
+        }
         view.openSourceText.setOnClickListener {
             startActivity(Intent(activity, OpenSourceActivity::class.java))
         }
         view.developerText.setOnClickListener {
-            context?.let { AlertDialogUtil.createDialogWithCancelButton("개발자 정보", resources.getString(R.string.developer_info), it, "취소", "확인",
-                DialogInterface.OnClickListener { dialog, _ ->
-                    val email = Intent(Intent.ACTION_SEND)
-                    email.type = "plain/text"
-                    // email setting 배열로 해놔서 복수 발송 가능
-                    val address = arrayOf("nasamk3@gmail.com")
-                    email.putExtra(Intent.EXTRA_EMAIL, address)
-                    email.putExtra(Intent.EXTRA_SUBJECT, "[Notissu] 문의합니다")
-                    startActivity(email)
-                    dialog.cancel()
-                }) }
+            context?.let {
+                AlertDialogUtil.createDialogWithCancelButton("개발자 정보",
+                    resources.getString(R.string.developer_info),
+                    it,
+                    "취소",
+                    "확인",
+                    DialogInterface.OnClickListener { dialog, _ ->
+                        val email = Intent(Intent.ACTION_SEND)
+                        email.type = "plain/text"
+                        // email setting 배열로 해놔서 복수 발송 가능
+                        val address = arrayOf("nasamk3@gmail.com")
+                        email.putExtra(Intent.EXTRA_EMAIL, address)
+                        email.putExtra(Intent.EXTRA_SUBJECT, "[Notissu] 문의합니다")
+                        startActivity(email)
+                        dialog.cancel()
+                    })
+            }
         }
         view.githubText.setOnClickListener {
-            context?.let { AlertDialogUtil.createDialogWithCancelButton("개발자 GitHub", resources.getString(R.string.github_info), it, "취소", "확인",
-                DialogInterface.OnClickListener { dialog, _ ->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/islandparadise14"))
-                    startActivity(intent)
-                    dialog.cancel()
-                }) }
+            context?.let {
+                AlertDialogUtil.createDialogWithCancelButton("개발자 GitHub",
+                    resources.getString(R.string.github_info),
+                    it,
+                    "취소",
+                    "확인",
+                    DialogInterface.OnClickListener { dialog, _ ->
+                        val intent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/islandparadise14")
+                        )
+                        startActivity(intent)
+                        dialog.cancel()
+                    })
+            }
         }
         view.recommendText.setOnClickListener {
-            context?.let { AlertDialogUtil.createDialogWithCancelButton("그라운드 설치", resources.getString(R.string.recommend_info), it, "취소", "확인",
-                DialogInterface.OnClickListener { dialog, _ ->
-                    val appPackageName = "com.yourssu.ground"
-                    try {
-                        startActivity(Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("market://details?id=$appPackageName")))
-                    } catch (anfe: ActivityNotFoundException) {
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
-                    }
-                    dialog.cancel()
-                }) }
+            context?.let {
+                AlertDialogUtil.createDialogWithCancelButton("그라운드 설치",
+                    resources.getString(R.string.recommend_info),
+                    it,
+                    "취소",
+                    "확인",
+                    DialogInterface.OnClickListener { dialog, _ ->
+                        val appPackageName = "com.yourssu.ground"
+                        try {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=$appPackageName")
+                                )
+                            )
+                        } catch (anfe: ActivityNotFoundException) {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                                )
+                            )
+                        }
+                        dialog.cancel()
+                    })
+            }
         }
         view.my_info.setOnClickListener {
-            context?.let { AlertDialogUtil.createMajorListDialog(MajorData.getInstance().getMajors().map { t -> t.name }, it, SharedPreferenceUtil.getInt(MAJOR_KEY)) { position ->
-                SharedPreferenceUtil.setIntValue(MAJOR_KEY, position)
-                (activity as MainActivity).refreshFragment()
-            }
+            context?.let {
+                AlertDialogUtil.createMajorListDialog(
+                    MajorData.getInstance().getMajors().map { t -> t.name },
+                    it,
+                    SharedPreferenceUtil.getInt(MAJOR_KEY)
+                ) { position ->
+                    SharedPreferenceUtil.setIntValue(MAJOR_KEY, position)
+                    (activity as MainActivity).refreshFragment()
+                }
             }
         }
     }

@@ -2,7 +2,6 @@ package com.yourssu.notissu.feature.selectNotiList
 
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.yourssu.notissu.R
 import com.yourssu.notissu.data.DATE_INTENT_KEY
 import com.yourssu.notissu.data.MAJOR_INTENT_KEY
 import com.yourssu.notissu.data.TITLE_INTENT_KEY
 import com.yourssu.notissu.data.URL_INTENT_KEY
 import com.yourssu.notissu.feature.notiDetail.NotiDetailActivity
-import com.yourssu.notissu.model.Notice
-import com.yourssu.notissu.utils.NetworkCheck
+import com.yourssu.notissu.model.NoticeItem
 import kotlinx.android.synthetic.main.fragment_select_noti_list.*
 import kotlinx.android.synthetic.main.fragment_select_noti_list.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -57,9 +54,9 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
     }
 
     private lateinit var presenter: SelectNotiListPresenter
-    private var notiList: ArrayList<Notice> = ArrayList()
-    private var result: ArrayList<Notice> = ArrayList()
-    private var resultTrigger: Notice? = null
+    private var notiList: ArrayList<NoticeItem> = ArrayList()
+    private var result: ArrayList<NoticeItem> = ArrayList()
+    private var resultTrigger: NoticeItem? = null
     private var isLast: Boolean = false
     private lateinit var mAdapter: NoticeAdapter
     private var nextPage = 1
@@ -149,17 +146,17 @@ class SelectNotiListFragment : Fragment, SelectNotiListContract.View {
         }
     }
 
-    private val mArticleDiffCallback = object : DiffUtil.ItemCallback<Notice>() {
-        override fun areItemsTheSame(oldItem: Notice, newItem: Notice): Boolean {
+    private val mArticleDiffCallback = object : DiffUtil.ItemCallback<NoticeItem>() {
+        override fun areItemsTheSame(oldItem: NoticeItem, newItem: NoticeItem): Boolean {
             return oldItem.title == newItem.title
         }
 
-        override fun areContentsTheSame(oldItem: Notice, newItem: Notice): Boolean {
+        override fun areContentsTheSame(oldItem: NoticeItem, newItem: NoticeItem): Boolean {
             return (oldItem.title == newItem.title) && (oldItem.url == newItem.url)
         }
     }
 
-    private val complete = { noticeList: ArrayList<Notice> ->
+    private val complete = { noticeList: ArrayList<NoticeItem> ->
         if (resultTrigger != null && noticeList.size > 0) {
             if (resultTrigger?.url == noticeList[0].url) isLast = true
             else resultTrigger = noticeList[0]

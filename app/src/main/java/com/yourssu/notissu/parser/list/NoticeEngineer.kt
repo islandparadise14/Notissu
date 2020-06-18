@@ -1,7 +1,7 @@
 package com.yourssu.notissu.parser.list
 
 import com.yourssu.notissu.data.NoticeURL
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import com.yourssu.notissu.utils.isNumeric
 import org.jsoup.Jsoup
 import java.lang.Exception
@@ -10,9 +10,9 @@ import java.net.URLEncoder
 object NoticeEngineer {
 
     @JvmStatic
-    fun parseListMachine(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListMachine(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.engineerMachineURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -54,7 +54,7 @@ object NoticeEngineer {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice("", titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem("", titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
@@ -66,12 +66,12 @@ object NoticeEngineer {
     }
 
     @JvmStatic
-    fun parseListChemistryEngineering(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListChemistryEngineering(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         // offset : 0 / 10 / 20 / etc.
         // offset : 0 * 10 / 1 * 10
         val offset = (page - 1) * 10
         val noticeUrl = "${NoticeURL.engineerChemistryURL}$offset"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -123,7 +123,7 @@ object NoticeEngineer {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -142,12 +142,12 @@ object NoticeEngineer {
     }
 
     @JvmStatic
-    fun parseListElectric(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListElectric(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         // offset : 0 / 10 / 20 / etc.
         // offset : 0 * 10 / 1 * 10
         val offset = (page - 1) * 10
         val noticeUrl = "${NoticeURL.engineerElectricURL}$offset"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -200,7 +200,7 @@ object NoticeEngineer {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         authorList[index],
                         titleList[index],
                         urlList[index],
@@ -219,9 +219,9 @@ object NoticeEngineer {
     }
 
     @JvmStatic
-    fun parseListIndustry(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListIndustry(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.engineerIndustryURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         var authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -274,7 +274,7 @@ object NoticeEngineer {
             index = 0
             for (num in urlList) {
                 if (!(page > 1 && isNoticeList[index])) {
-                    val noticeItem = Notice(
+                    val noticeItem = NoticeItem(
                         "",
                         titleList[index],
                         urlList[index],
@@ -293,9 +293,9 @@ object NoticeEngineer {
     }
 
     @JvmStatic
-    fun parseListOrganic(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListOrganic(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = "${NoticeURL.engineerOrganicURL}$page"
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -342,7 +342,7 @@ object NoticeEngineer {
 
             index = 0
             for (num in urlList) {
-                val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                val noticeItem = NoticeItem(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
                 noticeList.add(noticeItem)
                 index += 1
             }
@@ -354,9 +354,9 @@ object NoticeEngineer {
     }
 
     @JvmStatic
-    fun parseListArchitecture(page: Int, keyword: String?, completion: (ArrayList<Notice>) -> Unit) {
+    fun parseListArchitecture(page: Int, keyword: String?, completion: (ArrayList<NoticeItem>) -> Unit) {
         val noticeUrl = NoticeURL.engineerArchitectureURL
-        val noticeList = ArrayList<Notice>()
+        val noticeList = ArrayList<NoticeItem>()
         val authorList = ArrayList<String>()
         val titleList  = ArrayList<String>()
         val urlList = ArrayList<String>()
@@ -387,7 +387,7 @@ object NoticeEngineer {
                 var index = 0
 
                 for (num in urlList){
-                    val noticeItem = Notice(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
+                    val noticeItem = NoticeItem(authorList[index], titleList[index], urlList[index], dateStringList[index], false)
                     noticeList.add(noticeItem)
                     index += 1
                 }

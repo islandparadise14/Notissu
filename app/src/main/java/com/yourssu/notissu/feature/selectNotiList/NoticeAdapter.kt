@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yourssu.notissu.R
-import com.yourssu.notissu.model.Notice
+import com.yourssu.notissu.model.NoticeItem
 import kotlinx.android.synthetic.main.item_noti.view.*
 
-class NoticeAdapter(callback : DiffUtil.ItemCallback<Notice>, var notices: ArrayList<Notice>?, val clicked: (String?, String?, String?) -> Unit) : ListAdapter<Notice, RecyclerView.ViewHolder>(callback) {
+class NoticeAdapter(callback : DiffUtil.ItemCallback<NoticeItem>, var notices: ArrayList<NoticeItem>?, val clicked: (String?, String?, String?) -> Unit) : ListAdapter<NoticeItem, RecyclerView.ViewHolder>(callback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val itemView = inflater.inflate(R.layout.item_noti, parent, false)
